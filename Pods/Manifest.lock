@@ -1,0 +1,62 @@
+PODS:
+  - Alamofire (5.4.1)
+  - CarbonKit (2.3.1)
+  - ExpandableCell (1.3.0)
+  - IQKeyboardManagerSwift (6.5.6)
+  - KRActivityIndicatorView (3.0.7)
+  - KRProgressHUD (3.4.7):
+    - KRActivityIndicatorView (= 3.0.7)
+  - Pageboy (3.6.2)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
+  - SideMenu (6.5.0)
+  - SwiftyJSON (5.0.0)
+  - Tabman (2.10.0):
+    - Pageboy (~> 3.6.0)
+  - ViewPager-Swift (2.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - CarbonKit
+  - ExpandableCell
+  - IQKeyboardManagerSwift
+  - KRProgressHUD
+  - SDWebImage
+  - SideMenu
+  - SwiftyJSON
+  - Tabman
+  - ViewPager-Swift
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - CarbonKit
+    - ExpandableCell
+    - IQKeyboardManagerSwift
+    - KRActivityIndicatorView
+    - KRProgressHUD
+    - Pageboy
+    - SDWebImage
+    - SideMenu
+    - SwiftyJSON
+    - Tabman
+    - ViewPager-Swift
+
+SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  CarbonKit: b60e24dbdb47179990d5e074efa87ab819c8de98
+  ExpandableCell: 69ca7d71971c171473a7a30964d2127f4c6ceaf6
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
+  KRProgressHUD: a248f0bc6c9c2aed40a37b76e03ffecc7f85c887
+  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  Tabman: d8d6ab0b483c7db375a71ac227d3ef791b56a049
+  ViewPager-Swift: 7d83f5d4888a0fa808c08c8405ba84e603a2eb58
+
+PODFILE CHECKSUM: f47aad8739004ee4f7efab2e331237b69168e990
+
+COCOAPODS: 1.10.1

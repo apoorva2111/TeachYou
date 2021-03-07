@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SingleStoryCell" id="Daw-ip-IXm" customClass="SingleStoryCell" customModule="TeachYou" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="zkZ-42-Obd">
+                <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIf-eV-yMd">
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="V0W-52-RJK">
+                                <rect key="frame" x="10" y="10" width="70" height="70"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="fp3-b4-jY9">
+                                <rect key="frame" x="60" y="60" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="bRQ-2p-mzl"/>
+                                    <constraint firstAttribute="height" constant="20" id="cOO-JX-LMR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlp-zH-2b4">
+                                <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                <connections>
+                                    <action selector="storyBtnTapped:" destination="Daw-ip-IXm" eventType="touchUpInside" id="e9L-tG-GYS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="V0W-52-RJK" firstAttribute="leading" secondItem="JIf-eV-yMd" secondAttribute="leading" constant="10" id="37i-4d-b4d"/>
+                            <constraint firstItem="V0W-52-RJK" firstAttribute="top" secondItem="JIf-eV-yMd" secondAttribute="top" constant="10" id="5Oa-g5-sRq"/>
+                            <constraint firstItem="rlp-zH-2b4" firstAttribute="top" secondItem="JIf-eV-yMd" secondAttribute="top" id="6x1-hx-3ca"/>
+                            <constraint firstItem="fp3-b4-jY9" firstAttribute="trailing" secondItem="V0W-52-RJK" secondAttribute="trailing" id="EPt-Lq-3D9"/>
+                            <constraint firstItem="fp3-b4-jY9" firstAttribute="bottom" secondItem="V0W-52-RJK" secondAttribute="bottom" id="H86-yT-2at"/>
+                            <constraint firstAttribute="bottom" secondItem="V0W-52-RJK" secondAttribute="bottom" constant="10" id="NCw-v5-5Uf"/>
+                            <constraint firstAttribute="trailing" secondItem="V0W-52-RJK" secondAttribute="trailing" constant="10" id="NSq-MB-sVV"/>
+                            <constraint firstAttribute="bottom" secondItem="rlp-zH-2b4" secondAttribute="bottom" id="XTI-zV-IIt"/>
+                            <constraint firstItem="rlp-zH-2b4" firstAttribute="leading" secondItem="JIf-eV-yMd" secondAttribute="leading" id="drJ-GT-otW"/>
+                            <constraint firstAttribute="trailing" secondItem="rlp-zH-2b4" secondAttribute="trailing" id="x7f-5Q-LYH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="JIf-eV-yMd" firstAttribute="leading" secondItem="zkZ-42-Obd" secondAttribute="leading" id="Aoy-Un-xts"/>
+                    <constraint firstAttribute="bottom" secondItem="JIf-eV-yMd" secondAttribute="bottom" id="jvH-Al-3NK"/>
+                    <constraint firstItem="JIf-eV-yMd" firstAttribute="top" secondItem="zkZ-42-Obd" secondAttribute="top" id="r9h-aS-xHa"/>
+                    <constraint firstAttribute="trailing" secondItem="JIf-eV-yMd" secondAttribute="trailing" id="t4R-SB-lGd"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <size key="customSize" width="90" height="90"/>
+            <connections>
+                <outlet property="addImg" destination="fp3-b4-jY9" id="sXD-q6-U66"/>
+                <outlet property="storyBtn" destination="rlp-zH-2b4" id="hJJ-YK-ghT"/>
+                <outlet property="useRImg" destination="V0W-52-RJK" id="mPZ-Wa-yOj"/>
+            </connections>
+            <point key="canvasLocation" x="166.66666666666669" y="150"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="add" width="21" height="21"/>
+        <image name="userPlaceholder" width="69" height="69"/>
+    </resources>
+</document>

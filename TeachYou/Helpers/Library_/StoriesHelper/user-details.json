@@ -1,0 +1,55 @@
+{
+    "userDetails": [
+        {
+            "name": "Jonathan",
+            "imageUrl" :"https://randomuser.me/api/portraits/men/75.jpg",
+            "content": [
+                {
+                    "type": "image",
+                    "url": "https://picsum.photos/640/1136/?image=278"
+                },
+                {
+                    "type": "image",
+                    "url": "https://picsum.photos/640/1136/?image=273"
+                },
+                {
+                    "type": "image",
+                    "url": "https://picsum.photos/640/1136/?image=275"
+                },
+                {
+                    "type": "image",
+                    "url": "https://picsum.photos/640/1136/?image=280"
+                }
+            ]
+        },
+        
+        {"name": "Keila Maney",
+            "imageUrl" :"https://randomuser.me/api/portraits/women/81.jpg",
+            "content": [
+               
+                {
+                    "type": "video",
+                    "url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+                }
+            ]
+        },
+        {
+            "name": "Carolyne",
+            "imageUrl" :"https://randomuser.me/api/portraits/women/50.jpg",
+            "content": [
+                {
+                    "type": "image",
+                    "url": "https://picsum.photos/640/1136/?image=279"
+                },
+                {
+                    "type": "image",
+                    "url": "https://picsum.photos/640/1136/?image=280"
+                },
+                {
+                    "type": "video",
+                    "url": "https://storage.googleapis.com/coverr-main/webm/ShowT.webm"
+                }
+            ]
+        }
+    ]
+}

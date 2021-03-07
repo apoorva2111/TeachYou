@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProfileFriendTableViewCell" rowHeight="73" id="BhB-bu-YPE" customClass="ProfileFriendTableViewCell" customModule="Teach_You" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BhB-bu-YPE" id="kbk-27-jXx">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRi-JK-trA">
+                        <rect key="frame" x="10" y="10" width="394" height="53"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="KO3-PR-AEP">
+                                <rect key="frame" x="10" y="1.5" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="2et-dh-CWK"/>
+                                    <constraint firstAttribute="width" constant="50" id="sP6-ww-4Aw"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mA-mC-hmR">
+                                <rect key="frame" x="70" y="17.5" width="319" height="18"/>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
+                                <color key="textColor" systemColor="viewFlipsideBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4mA-mC-hmR" firstAttribute="centerY" secondItem="KO3-PR-AEP" secondAttribute="centerY" id="2Ii-D4-0CU"/>
+                            <constraint firstItem="KO3-PR-AEP" firstAttribute="centerY" secondItem="bRi-JK-trA" secondAttribute="centerY" id="HhH-e1-cG0"/>
+                            <constraint firstItem="KO3-PR-AEP" firstAttribute="leading" secondItem="bRi-JK-trA" secondAttribute="leading" constant="10" id="ebR-hF-hzG"/>
+                            <constraint firstItem="KO3-PR-AEP" firstAttribute="centerY" secondItem="bRi-JK-trA" secondAttribute="centerY" id="f3i-yX-CwB"/>
+                            <constraint firstItem="4mA-mC-hmR" firstAttribute="leading" secondItem="KO3-PR-AEP" secondAttribute="trailing" constant="10" id="okd-AW-0AW"/>
+                            <constraint firstAttribute="trailing" secondItem="4mA-mC-hmR" secondAttribute="trailing" constant="5" id="tg0-xE-5hm"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bRi-JK-trA" firstAttribute="leading" secondItem="kbk-27-jXx" secondAttribute="leading" constant="10" id="0gg-B2-gGL"/>
+                    <constraint firstItem="bRi-JK-trA" firstAttribute="top" secondItem="kbk-27-jXx" secondAttribute="top" constant="10" id="JQu-6A-geG"/>
+                    <constraint firstAttribute="trailing" secondItem="bRi-JK-trA" secondAttribute="trailing" constant="10" id="JSu-sX-D43"/>
+                    <constraint firstAttribute="bottom" secondItem="bRi-JK-trA" secondAttribute="bottom" constant="10" id="fkq-jJ-HYx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bgView" destination="bRi-JK-trA" id="89d-rt-znd"/>
+                <outlet property="userImgVw" destination="KO3-PR-AEP" id="FgM-hJ-Ijq"/>
+                <outlet property="userName" destination="4mA-mC-hmR" id="r1m-Xo-Gdm"/>
+            </connections>
+            <point key="canvasLocation" x="154" y="78"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="imagePlaceholder" width="174" height="116.5"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="viewFlipsideBackgroundColor">
+            <color red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

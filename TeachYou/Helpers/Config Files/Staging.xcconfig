@@ -1,0 +1,9 @@
+////
+//  Staging.xcconfig
+
+API_BASE_URL = https:\/\/teachyou.in/androidApi.php
+BUILD_VERSION = 2.0
+VERSION = 1.0
+//https://b5b724cd.ngrok.io
+//https://b574aa95.ngrok.io/
+//104.197.83.86:8000

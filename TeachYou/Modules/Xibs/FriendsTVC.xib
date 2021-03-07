@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="82" id="bxe-QQ-s6U">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bxe-QQ-s6U" id="eMB-hR-pe7">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-W3-QSn">
+                        <rect key="frame" x="7" y="7" width="400" height="68"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="Kvn-Jd-yN6">
+                                <rect key="frame" x="10" y="9" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="bC7-zJ-rL1"/>
+                                    <constraint firstAttribute="height" constant="50" id="cxp-ms-EBe"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyO-kb-QLh">
+                                <rect key="frame" x="70" y="25" width="202" height="18"/>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amO-OE-pqk">
+                                <rect key="frame" x="282" y="16.5" width="90" height="35"/>
+                                <color key="backgroundColor" red="0.87566941980000002" green="0.28691527249999998" blue="0.3632098138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="GgZ-aB-07k"/>
+                                    <constraint firstAttribute="width" constant="90" id="WlZ-Og-Hvm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Accept" image="checkmark" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="17.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="amO-OE-pqk" firstAttribute="centerY" secondItem="2hk-W3-QSn" secondAttribute="centerY" id="CEi-ly-3oE"/>
+                            <constraint firstItem="amO-OE-pqk" firstAttribute="leading" secondItem="qyO-kb-QLh" secondAttribute="trailing" constant="10" id="CMl-uP-H8g"/>
+                            <constraint firstItem="qyO-kb-QLh" firstAttribute="centerY" secondItem="Kvn-Jd-yN6" secondAttribute="centerY" id="EbN-QI-VyY"/>
+                            <constraint firstItem="Kvn-Jd-yN6" firstAttribute="leading" secondItem="2hk-W3-QSn" secondAttribute="leading" constant="10" id="SES-Ub-iF0"/>
+                            <constraint firstItem="qyO-kb-QLh" firstAttribute="leading" secondItem="Kvn-Jd-yN6" secondAttribute="trailing" constant="10" id="WJi-So-Qj9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="amO-OE-pqk" secondAttribute="trailing" constant="20" id="oSj-jv-7KO"/>
+                            <constraint firstItem="Kvn-Jd-yN6" firstAttribute="centerY" secondItem="2hk-W3-QSn" secondAttribute="centerY" id="qXk-KW-b2W"/>
+                            <constraint firstItem="Kvn-Jd-yN6" firstAttribute="centerY" secondItem="2hk-W3-QSn" secondAttribute="centerY" id="t5H-Un-D7M"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="2hk-W3-QSn" firstAttribute="top" secondItem="eMB-hR-pe7" secondAttribute="top" constant="7" id="03E-SC-JgE"/>
+                    <constraint firstItem="2hk-W3-QSn" firstAttribute="leading" secondItem="eMB-hR-pe7" secondAttribute="leading" constant="7" id="5zu-fN-44z"/>
+                    <constraint firstAttribute="trailing" secondItem="2hk-W3-QSn" secondAttribute="trailing" constant="7" id="B3t-A9-Jg3"/>
+                    <constraint firstAttribute="bottom" secondItem="2hk-W3-QSn" secondAttribute="bottom" constant="7" id="D9W-Bz-6ta"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="137.68115942028987" y="149.33035714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="imagePlaceholder" width="174" height="116.5"/>
+    </resources>
+</document>
