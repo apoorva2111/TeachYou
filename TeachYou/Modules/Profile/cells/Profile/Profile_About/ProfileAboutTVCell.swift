@@ -9,6 +9,14 @@
 import UIKit
 import KRProgressHUD
 import Alamofire
+
+protocol ProfileAboutTVCellDelegate {
+    // ,  , , ,
+    func editExperience(expWorkTitle: String, expCompanyName:String, expStartDatr:String, expEndDate:String,expPresent:Int, expId:Int)
+    func editEducation(eduSchoolName: String, eduDegree:String, eduStartDatr:String, eduEndDate:String,eduPresent:Int, eduId:Int)
+}
+
+
 class ProfileAboutTVCell: UITableViewCell {
    //View About
     @IBOutlet weak var bgAboutVw: UIView!
@@ -17,7 +25,7 @@ class ProfileAboutTVCell: UITableViewCell {
     @IBOutlet weak var editButtonOutlet: UIButton!
     //View Experience
     @IBOutlet weak var addExperienceButtonOutlet: UIButton!
-    @IBOutlet weak var tblExperience: UITableView!
+    @IBOutlet weak var tblExperience: customTblView!
     @IBOutlet weak var txtvwExperience: UITextView!
     @IBOutlet weak var txtvwCompanyName: UITextView!
     @IBOutlet weak var btnOutletStartDate: UIButton!
@@ -39,11 +47,10 @@ class ProfileAboutTVCell: UITableViewCell {
     @IBOutlet weak var btnOutletEducationEndDate: UIButton!
     @IBOutlet weak var viewEducationEndDate: UIView!
     @IBOutlet weak var btnOutletEducationStartDate: UIButton!
-    @IBOutlet weak var tblEducation: UITableView!
-    @IBOutlet weak var tblEducationHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tblEducation: customTblView!
     @IBOutlet weak var viewEducationDateView: UIView!
-    
     @IBOutlet weak var viewEducationSubmit: UIView!
+    
     //View Skill
     @IBOutlet weak var bgSkillsVw: UIView!
     @IBOutlet weak var btnEditSkillOutlet: UIButton!
@@ -69,8 +76,10 @@ class ProfileAboutTVCell: UITableViewCell {
   
     @IBOutlet weak var viewEducationHeightConstraint: NSLayoutConstraint!
     
+    var viewCntrl : UIViewController?
+    
     var userProfileData: ProfileModel?
-    var tableView : UITableView!
+    var tableViewMain : UITableView!
 
     var language = ""
     var skill = ""
@@ -83,7 +92,8 @@ class ProfileAboutTVCell: UITableViewCell {
     var exp_id = 0
     var edu_endDate = ""
     var exp_endDate = ""
-    
+    var delegate : ProfileAboutTVCellDelegate!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -91,7 +101,6 @@ class ProfileAboutTVCell: UITableViewCell {
     }
     
     func setView()  {
-        btnAboutSubmitHeightConstraint.constant = 0
         bgAboutVw.roundCornerWithShadow(shadowColor: .lightGray, radius: 20, borderWidth: 0, borderColor: .clear, shadowOpacity: 2, shadowRadius: 2, shadowOffsetWidth: 2, shadowOffsetHeight: 2)
 
         bgExperienceVw.roundCornerWithShadow(shadowColor: .lightGray, radius: 20, borderWidth: 0, borderColor: .clear, shadowOpacity: 2, shadowRadius: 2, shadowOffsetWidth: 2, shadowOffsetHeight: 2)
@@ -122,6 +131,11 @@ class ProfileAboutTVCell: UITableViewCell {
         tblEducation.dataSource = self
         tblExperience.delegate = self
         tblExperience.dataSource = self
+//        txtvwExperience.delegate = self
+//        txtvwCompanyName.delegate = self
+//        txtSchoolName.delegate = self
+//        txtvwAddLanguage.delegate = self
+        
         
         self.tblEducation.register(UINib(nibName: "EducationTVCell", bundle: nil), forCellReuseIdentifier: "EducationTVCell")
         self.tblExperience.register(UINib(nibName: "ExperienceTVCell", bundle: nil), forCellReuseIdentifier: "ExperienceTVCell")
@@ -171,7 +185,7 @@ class ProfileAboutTVCell: UITableViewCell {
         lblIntrests.attributedText = NSAttributedStringHelper.createBulletedList(fromStringArray: arrIntrests, font: UIFont(name: "Roboto-Medium", size:13.0))
 
         }
-        aboutTV.text = userData?.user_about_me
+        aboutTV.text = userData?.user_biography
         aboutTV.textColor = UIColor.black
         self.btnEditSkillOutlet.setImage(#imageLiteral(resourceName: "pencil"), for: .normal)
         self.btnEditLanguageOutlet.setImage(#imageLiteral(resourceName: "pencil"), for: .normal)
@@ -181,31 +195,31 @@ class ProfileAboutTVCell: UITableViewCell {
        
             if let experience = userData?.experiences?.count{
                 if experience > 0 {
-                    let allCount = userData?.experiences?.count ?? 0
-//                    DispatchQueue.main.async {
-//                       self.tblExperinceHeightConstraint.constant = CGFloat(allCount*100) //+ 10
-//                        self.layoutIfNeeded()
-//                        print(self.tblExperinceHeightConstraint.constant)
-//
-//                    }
+
                     self.tblExperience.reloadData()
+                    self.tblExperience.layoutIfNeeded()
 
 
                 }
+            }else{
+                self.viewExpwerienceSubmit.isHidden = false
+                self.viewExperienceDateView.isHidden = false
+                self.tblExperience.reloadData()
+                self.tblExperience.layoutIfNeeded()
             }
 
             if let education = userData?.educations?.count{
                 if education > 0 {
 
-                    let allCount = userData?.experiences?.count ?? 0
-//                    DispatchQueue.main.async {
-//                        self.tblEducationHeightConstraint.constant = CGFloat(allCount*100) //+ 10
-//                        self.layoutIfNeeded()
-//                        print(self.tblEducationHeightConstraint.constant)
-//                    }
                     self.tblEducation.reloadData()
+                    self.tblEducation.layoutIfNeeded()
 
                 }
+            }else{
+                self.viewEducationSubmit.isHidden = false
+                self.viewEducationDateView.isHidden = false
+                self.tblEducation.reloadData()
+                self.tblEducation.layoutIfNeeded()
             }
     }
 
@@ -296,6 +310,7 @@ class ProfileAboutTVCell: UITableViewCell {
     @IBAction func btnEditableAction(_ sender: UIButton) {
         if sender.tag == 10 {
             print("About")
+            btnSubmit.isHidden = false
         }else if sender.tag == 20 {
             print("Experiance")
                 viewExpwerienceSubmit.isHidden = false
@@ -320,6 +335,9 @@ class ProfileAboutTVCell: UITableViewCell {
                 txtvwAddSkill.text = ""
                 lblSkills.isHidden = false
                 btnEditSkillOutlet.setImage(#imageLiteral(resourceName: "pencil"), for: .normal)
+                self.tableViewMain.reloadData()
+                 self.tableViewMain.layoutIfNeeded()
+
 
             }else{
                 sender.isSelected = true
@@ -328,6 +346,9 @@ class ProfileAboutTVCell: UITableViewCell {
                 lblSkills.isHidden = true
                 txtvwAddSkill.text = skill
                 btnEditSkillOutlet.setImage(#imageLiteral(resourceName: "cross_btn"), for: .normal)
+                self.tableViewMain.reloadData()
+                 self.tableViewMain.layoutIfNeeded()
+
             }
 
         }else if sender.tag == 50 {
@@ -338,12 +359,18 @@ class ProfileAboutTVCell: UITableViewCell {
                 viewLanguageSubmit.isHidden = true
                 lblLanguage.isHidden = false
                 txtvwAddLanguage.text = ""
+                self.tableViewMain.reloadData()
+                 self.tableViewMain.layoutIfNeeded()
+
             }else{
                 sender.isSelected = true
                 txtvwAddLanguage.isHidden = false
                 viewLanguageSubmit.isHidden = false
                 lblLanguage.isHidden = true
                 txtvwAddLanguage.text = language
+                self.tableViewMain.reloadData()
+                 self.tableViewMain.layoutIfNeeded()
+
             }
             
         }else if sender.tag == 60 {
@@ -354,12 +381,16 @@ class ProfileAboutTVCell: UITableViewCell {
                 viewIntrestSubmit.isHidden = true
                 txtvwAddIntrests.text = ""
                 lblIntrests.isHidden = false
+                self.tableViewMain.reloadData()
+                 self.tableViewMain.layoutIfNeeded()
             }else{
                 sender.isSelected = true
                 txtvwAddIntrests.isHidden = false
                 viewIntrestSubmit.isHidden = false
                 txtvwAddIntrests.text = intrests
                 lblIntrests.isHidden = true
+                self.tableViewMain.reloadData()
+                 self.tableViewMain.layoutIfNeeded()
             }
         }
     }
@@ -383,6 +414,9 @@ class ProfileAboutTVCell: UITableViewCell {
             print("Submit intrest")
             AddIntrest()
 
+        }else if sender.tag == 60{
+            print("About")
+            AddAbout()
         }
     }
 }
@@ -406,8 +440,12 @@ extension ProfileAboutTVCell : UITableViewDelegate,UITableViewDataSource{
             }else{
                 cell.lblTotalTimeDate.text = (userProfileData?.educations?[indexPath.row].edu_from_date)! + " - " + (userProfileData?.educations?[indexPath.row].edu_to_date)!
             }
+            cell.viewEdit.isHidden = true
+            cell.viewDelete.isHidden = true
             cell.btnEditOutlet.addTarget(self, action: #selector(editEducationAction), for: .touchUpInside)
             cell.btnDeleteOutlet.addTarget(self, action: #selector(deleteEducationAction), for: .touchUpInside)
+            cell.btnEditOutlet.tag = indexPath.row
+            cell.btnDeleteOutlet.tag = indexPath.row
 
             return cell
 
@@ -421,9 +459,13 @@ extension ProfileAboutTVCell : UITableViewDelegate,UITableViewDataSource{
             }else{
                 cell.lblTotalTimeDate.text = (userProfileData?.experiences?[indexPath.row].user_work_from_date)! + " - " + (userProfileData?.experiences?[indexPath.row].user_work_to_date)!
             }
+            cell.viewEdit.isHidden = true
+            cell.viewDelete.isHidden = true
             cell.btnEditOutlet.addTarget(self, action: #selector(editExperienceAction), for: .touchUpInside)
             cell.btnDeleteOutlet.addTarget(self, action: #selector(deleteExperienceAction), for: .touchUpInside)
             cell.btnEditOutlet.tag = indexPath.row
+            cell.btnDeleteOutlet.tag = indexPath.row
+
          //   cell.layoutIfNeeded()
 
             return cell
@@ -434,87 +476,79 @@ extension ProfileAboutTVCell : UITableViewDelegate,UITableViewDataSource{
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
-    }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if tableView == tblEducation{
-
-            let allCount = userProfileData?.educations?.count ?? 0
-            DispatchQueue.main.async {
-//                self.tblEducationHeightConstraint.constant = CGFloat(allCount*100) //+ 10
-                let cellHeight = Int(cell.frame.height)
-                self.tblEducationHeightConstraint.constant = CGFloat(allCount*cellHeight) //+ 10
-                if self.tblEducationHeightConstraint.constant == 300{
-                    self.tblEducation.isScrollEnabled = true
-                }else{
-                    self.tblEducation.isScrollEnabled = false
-                }
-                self.layoutIfNeeded()
-            }
-        }
-        else{
-
-            let allCount = userProfileData?.experiences?.count ?? 0
-            DispatchQueue.main.async {
-                let cellHeight = Int(cell.frame.height)
-                self.tblExperinceHeightConstraint.constant = CGFloat(allCount*cellHeight) //+ 10
-                if self.tblExperinceHeightConstraint.constant == 300 {
-                    self.tblExperience.isScrollEnabled = true
-                }else{
-                    self.tblEducation.isScrollEnabled = false
-                }
-                self.layoutIfNeeded()
-
-            }
-
-        }
-    }
-
     @objc  func editEducationAction(_ sender: UIButton) {
-//        let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tblEducation)
-//        let indexPath = self.tblEducation.indexPathForRow(at: buttonPosition)
+        let obj = userProfileData?.educations?[sender.tag]
         ProfileAboutString.edu_ActionType = "Edit"
+        delegate.editEducation(eduSchoolName: obj?.user_edu_major ?? "", eduDegree: obj?.user_edu_degree ?? "", eduStartDatr: obj?.edu_from_date ?? "", eduEndDate: obj?.edu_to_date ?? "", eduPresent: obj?.edu_present ?? 0, eduId: obj?.edu_id ?? 0)
     }
     
     @objc  func deleteEducationAction(_ sender: UIButton) {
       //  let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tblExperience)
-      //  let indexPath = self.tblExperience.indexPathForRow(at: buttonPosition)
+        let obj = userProfileData?.educations?[sender.tag]
+        DeleteEducation(eduid: obj?.edu_id ?? 0)
     }
+    
     @objc  func editExperienceAction(_ sender: UIButton) {
-//        let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tblEducation)
-//        let indexPath = self.tblEducation.indexPathForRow(at: buttonPosition)
         let obj = userProfileData?.experiences?[sender.tag]
-        txtvwExperience.text = obj?.user_work_title
-        txtvwCompanyName.text = obj?.user_work_place
-        btnOutletStartDate.setTitle(obj?.user_work_from_date, for: .normal)
         ProfileAboutString.exp_ActionType = "Edit"
-        viewExperienceDateView.isHidden = false
-        viewExpwerienceSubmit.isHidden = false
-
+        
+        delegate.editExperience(expWorkTitle: obj?.user_work_title ?? "", expCompanyName: obj?.user_work_place ?? "", expStartDatr: obj?.user_work_from_date ?? "", expEndDate: obj?.user_work_to_date ?? "", expPresent: obj?.user_work_present ?? 0, expId: obj?.exp_id ?? 0)
     }
     
     @objc  func deleteExperienceAction(_ sender: UIButton) {
-      //  let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tblExperience)
-      //  let indexPath = self.tblExperience.indexPathForRow(at: buttonPosition)
+        let obj = userProfileData?.experiences?[sender.tag]
+        DeleteExperience(exp_id: obj?.exp_id ?? 0)
     }
 }
-extension ProfileAboutTVCell: UITextViewDelegate{
-   
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
-            textView.text = nil
-            textView.textColor = UIColor.black
-        }
-    }
-            func textViewDidEndEditing(_ textView: UITextView) {
-                if textView.text.isEmpty {
-                    textView.text = "Write about yourself"
-                    textView.textColor = UIColor.lightGray
-                }
-            }
-}
+//extension ProfileAboutTVCell: UITextViewDelegate{
+//
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        if txtvwExperience.textColor == UIColor.lightGray {
+//            txtvwExperience.text = nil
+//            txtvwExperience.textColor = UIColor.black
+//        }
+//        if txtvwCompanyName.textColor == UIColor.lightGray {
+//            txtvwCompanyName.text = nil
+//            txtvwCompanyName.textColor = UIColor.black
+//        }
+//        if txtSchoolName.textColor == UIColor.lightGray {
+//            txtSchoolName.text = nil
+//            txtSchoolName.textColor = UIColor.black
+//        }
+//        if txtDegreeName.textColor == UIColor.lightGray {
+//            txtDegreeName.text = nil
+//            txtDegreeName.textColor = UIColor.black
+//        }
+//        if aboutTV.textColor == UIColor.lightGray {
+//            txtvwCompanyName.text = nil
+//            txtvwCompanyName.textColor = UIColor.black
+//        }
+//    }
+//
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if txtvwExperience.text.isEmpty{
+//            txtvwExperience.text = "Experience"
+//            txtvwExperience.textColor = UIColor.lightGray
+//        }
+//        if txtvwCompanyName.text.isEmpty{
+//            txtvwCompanyName.text = "Company Name"
+//            txtvwCompanyName.textColor = UIColor.lightGray
+//        }
+//        if txtSchoolName.text.isEmpty{
+//            txtSchoolName.text = "School/Collage Name"
+//            txtSchoolName.textColor = UIColor.lightGray
+//        }
+//        if txtDegreeName.text.isEmpty{
+//            txtDegreeName.text = "Degree"
+//            txtDegreeName.textColor = UIColor.lightGray
+//        }
+//        if aboutTV.text.isEmpty {
+//            textView.text = "Write about yourself"
+//            textView.textColor = UIColor.lightGray
+//        }
+//    }
+//}
 extension ProfileAboutTVCell:DatePickerViewDelegate{
     func dobDoneTapped(value: String) {
         let inputFormatter = DateFormatter()
@@ -572,6 +606,8 @@ extension ProfileAboutTVCell {
         if ProfileAboutString.edu_ActionType == "Add"{
             edu_id += 1
             print(edu_id)
+        }else if ProfileAboutString.edu_ActionType == ""{
+            ProfileAboutString.edu_ActionType = "Add"
         }
         
         
@@ -586,10 +622,7 @@ extension ProfileAboutTVCell {
             "edu_to_date" : edu_endDate,
             "edu_id" : edu_id
          ]
-        
-        /*
-
-         */
+       
         print(parameters)
         let urlString = AppConstants.BASE_URL
         let url = URL.init(string: urlString)
@@ -602,9 +635,40 @@ extension ProfileAboutTVCell {
               if let respValuev = response.value as?[String:Any] {
                 let status = respValuev["status"] as? Bool
                 if status == true{
-                    self.viewExpwerienceSubmit.isHidden = true
-                    self.viewExperienceDateView.isHidden = true
-                    self.getAbout()
+                    self.viewEducationSubmit.isHidden = true
+                    self.viewEducationDateView.isHidden = true
+                    //self.getAbout()
+                    self.viewCntrl?.viewDidLoad()
+                }
+                }
+                                
+            }
+        
+    }
+    func AddAbout() {
+        KRProgressHUD.show()
+        
+        let parameters: [String: Any] = [
+            "action" : "update_user_profile",
+            "user_id" : UserSessionManager.shared.getUserId() ?? "",
+            "action_name" : "biography",
+            "user_biography" : aboutTV.text ?? ""
+         ]
+        print(parameters)
+        let urlString = AppConstants.BASE_URL
+        let url = URL.init(string: urlString)
+        
+        AF.request(url!, method: .post, parameters: parameters)
+            .responseJSON { response in
+                //to get status code
+                KRProgressHUD.dismiss()
+              
+              if let respValuev = response.value as?[String:Any] {
+                let status = respValuev["status"] as? Bool
+                if status == true{
+                    self.btnSubmit.isHidden = true
+                    
+                    self.viewCntrl?.viewDidLoad()
                 }
                 }
                                 
@@ -616,7 +680,9 @@ extension ProfileAboutTVCell {
         if ProfileAboutString.exp_ActionType == "Add"{
                    exp_id += 1
                    print(exp_id)
-               }
+        }else if ProfileAboutString.exp_ActionType == ""{
+            ProfileAboutString.exp_ActionType = "Add"
+        }
                
         
         let parameters: [String: Any] = [
@@ -644,7 +710,70 @@ extension ProfileAboutTVCell {
                 if status == true{
                     self.viewExpwerienceSubmit.isHidden = true
                     self.viewExperienceDateView.isHidden = true
-                    self.getAbout()
+                   // self.getAbout()
+                    
+                    self.viewCntrl?.viewDidLoad()
+                }
+                }
+                                
+            }
+        
+    }
+
+    func DeleteEducation(eduid:Int) {
+        KRProgressHUD.show()
+        let parameters: [String: Any] = [
+            "action" : "deleteEducation",
+            "user_id" : UserSessionManager.shared.getUserId() ?? "",
+            "edu_id" : eduid
+         ]
+        print(parameters)
+        let urlString = AppConstants.BASE_URL
+        let url = URL.init(string: urlString)
+        
+        AF.request(url!, method: .post, parameters: parameters)
+            .responseJSON { response in
+                //to get status code
+                KRProgressHUD.dismiss()
+              
+              if let respValuev = response.value as?[String:Any] {
+                let status = respValuev["status"] as? Bool
+                if status == true{
+                    self.viewExpwerienceSubmit.isHidden = true
+                    self.viewExperienceDateView.isHidden = true
+                    self.tblEducation.reloadData()
+
+                    //self.getAbout()
+                    self.viewCntrl?.viewDidLoad()
+                }
+                }
+                                
+            }
+    }
+    func DeleteExperience(exp_id:Int) {
+        KRProgressHUD.show()
+        let parameters: [String: Any] = [
+            "action" : "deleteExperience",
+            "user_id" : UserSessionManager.shared.getUserId() ?? "",
+            "exp_id" : exp_id
+         ]
+        print(parameters)
+        let urlString = AppConstants.BASE_URL
+        let url = URL.init(string: urlString)
+        
+        AF.request(url!, method: .post, parameters: parameters)
+            .responseJSON { response in
+                //to get status code
+                KRProgressHUD.dismiss()
+              
+              if let respValuev = response.value as?[String:Any] {
+                let status = respValuev["status"] as? Bool
+                if status == true{
+                    self.viewExpwerienceSubmit.isHidden = true
+                    self.viewExperienceDateView.isHidden = true
+                    self.tblExperience.reloadData()
+                    //self.getAbout()
+                    self.viewCntrl?.viewDidLoad()
                 }
                 }
                                 
@@ -778,8 +907,8 @@ extension ProfileAboutTVCell {
                                     self.tblEducation.endUpdates()
                                     self.tblExperience.beginUpdates()
                                     self.tblExperience.endUpdates()
-                                    self.tableView.beginUpdates()
-                                    self.tableView.endUpdates()
+                                    self.tableViewMain.beginUpdates()
+                                    self.tableViewMain.endUpdates()
 
                                 } catch let error{
                                     print(error)

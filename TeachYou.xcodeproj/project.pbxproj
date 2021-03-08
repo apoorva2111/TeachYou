@@ -367,6 +367,7 @@
 		E3CC869525F3011000354696 /* AboutTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3CC869325F3011000354696 /* AboutTVCell.xib */; };
 		E3CC869F25F304C000354696 /* TblEducationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CC869D25F304C000354696 /* TblEducationCell.swift */; };
 		E3CC86A025F304C000354696 /* TblEducationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3CC869E25F304C000354696 /* TblEducationCell.xib */; };
+		E3DCE6D125F6221F004B90D3 /* UITextViewPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DCE6D025F6221F004B90D3 /* UITextViewPlaceholder.swift */; };
 		E3E6627025E2AA550049949B /* PostAppreciatesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6626E25E2AA550049949B /* PostAppreciatesModel.swift */; };
 		E3E6627125E2AA550049949B /* PostAppreciates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6626F25E2AA550049949B /* PostAppreciates.swift */; };
 		E3E662A625E2B1B00049949B /* RCustomClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E662A525E2B1B00049949B /* RCustomClass.swift */; };
@@ -750,6 +751,7 @@
 		E3CC869325F3011000354696 /* AboutTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutTVCell.xib; sourceTree = "<group>"; };
 		E3CC869D25F304C000354696 /* TblEducationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TblEducationCell.swift; sourceTree = "<group>"; };
 		E3CC869E25F304C000354696 /* TblEducationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TblEducationCell.xib; sourceTree = "<group>"; };
+		E3DCE6D025F6221F004B90D3 /* UITextViewPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewPlaceholder.swift; sourceTree = "<group>"; };
 		E3E6626E25E2AA550049949B /* PostAppreciatesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAppreciatesModel.swift; sourceTree = "<group>"; };
 		E3E6626F25E2AA550049949B /* PostAppreciates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAppreciates.swift; sourceTree = "<group>"; };
 		E3E662A525E2B1B00049949B /* RCustomClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCustomClass.swift; sourceTree = "<group>"; };
@@ -1779,6 +1781,7 @@
 		E32FD0C225ED6A0C00D74A0A /* Profile_About */ = {
 			isa = PBXGroup;
 			children = (
+				E3DCE6D025F6221F004B90D3 /* UITextViewPlaceholder.swift */,
 				E32FD0C325ED6A8A00D74A0A /* ProfileAboutTVCell.swift */,
 				E32FD0C425ED6A8A00D74A0A /* ProfileAboutTVCell.xib */,
 				E36F6E9A25EE600D0023375E /* EducationTVCell.swift */,
@@ -1807,7 +1810,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D61B697F2574C39E0055FBCA /* Build configuration list for PBXNativeTarget "TeachYou" */;
 			buildPhases = (
-				CC73AB17D243064BEEAAC43A /* [CP] Build Pods Frameworks */,
+				E86A15B817BCAE90DCAAC43A /* Build Assets Catalog */,
 				8503FF7A91CA782A50A64560 /* [CP] Check Pods Manifest.lock */,
 				D61B69672574C39D0055FBCA /* Sources */,
 				D61B69682574C39D0055FBCA /* Frameworks */,
@@ -1940,7 +1943,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	CC73AB17D243064BEEAAC43A /* [CP] Build Pods Frameworks */ = {
+	E86A15B817BCAE90DCAAC43A /* Build Assets Catalog */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1949,7 +1952,7 @@
 			);
 			inputPaths = (
 			);
-			name = "[CP] Build Pods Frameworks";
+			name = "Build Assets Catalog";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1958,74 +1961,8 @@
 			shellPath = /bin/sh;
 			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
 
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Assets.xcassets\" false";			
 		};
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	
 
 	
@@ -2199,6 +2136,7 @@
 				D6226A5125768AD300808228 /* VideosVC.swift in Sources */,
 				D6226A4C2576805E00808228 /* BaseViewController.swift in Sources */,
 				D61B6AA9257516AA0055FBCA /* ViewPagerController.swift in Sources */,
+				E3DCE6D125F6221F004B90D3 /* UITextViewPlaceholder.swift in Sources */,
 				D61B6A93257516AA0055FBCA /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
 				D678E96E2592CC980085CD59 /* ProfileLanguagesTableViewCell.swift in Sources */,
 				D678E9782592CCE70085CD59 /* ProfilePhotosTableViewCell.swift in Sources */,
@@ -2521,9 +2459,9 @@
 			baseConfigurationReference = 74A3E9170B0A82C76BE84A82 /* Pods-TeachYou.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6022048;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6022057;
 				DEVELOPMENT_TEAM = NZ7942RN76;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2537,7 +2475,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.TeachYou.TeachYou;
 				PRODUCT_NAME = "Teach-You";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = teachyou_dev;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2548,9 +2486,9 @@
 			baseConfigurationReference = E2AB78DD7ED00683FDD562A2 /* Pods-TeachYou.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6022048;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6022057;
 				DEVELOPMENT_TEAM = NZ7942RN76;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2564,7 +2502,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.TeachYou.TeachYou;
 				PRODUCT_NAME = "Teach-You";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = teachyou_dev;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2595,42 +2533,6 @@
 
 		
 			/* Begin PBXBuildRule section */
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
 			
 
 			

@@ -27,7 +27,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0uk-IE-UYK">
-                        <rect key="frame" x="10" y="10" width="300" height="130"/>
+                        <rect key="frame" x="10" y="10" width="300" height="150"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bi-fr-QkA">
                                 <rect key="frame" x="10" y="10" width="280" height="30"/>
@@ -45,7 +45,7 @@
                                             <constraint firstAttribute="width" constant="30" id="zPZ-uf-yDo"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="viewFlipsideBackgroundColor"/>
-                                        <state key="normal" image="pencil" catalog="system"/>
+                                        <state key="normal" image="pencil"/>
                                         <connections>
                                             <action selector="btnEditableAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zLh-O8-W0a"/>
                                         </connections>
@@ -61,46 +61,54 @@
                                     <constraint firstAttribute="height" constant="30" id="rNQ-9N-R7v"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Write about yourself " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kpd-f1-3b6">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kpd-f1-3b6" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="10" y="45" width="280" height="40"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="250" constant="40" id="jS1-Wx-MTE"/>
+                                    <constraint firstAttribute="height" priority="250" constant="40" id="jS1-Wx-MTE"/>
                                 </constraints>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Write about yourself "/>
+                                </userDefinedRuntimeAttributes>
                             </textView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0q7-ri-MyY">
+                            <button hidden="YES" opaque="NO" tag="60" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0q7-ri-MyY" customClass="RCustomButton" customModule="Teach_You" customModuleProvider="target">
                                 <rect key="frame" x="200" y="95" width="90" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="90" id="L0V-wO-7JJ"/>
-                                    <constraint firstAttribute="height" constant="30" id="uLc-Z3-f5g"/>
+                                    <constraint firstAttribute="height" constant="30" id="hJ3-Se-exm"/>
+                                    <constraint firstAttribute="width" constant="90" id="n3t-Cv-Oss"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Submit">
-                                    <color key="titleColor" red="0.68853034859999995" green="0.095403784409999998" blue="0.08321580042" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="SUBMIT">
+                                    <color key="titleColor" red="0.58823529411764708" green="0.0" blue="0.14509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnSubmitAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="e19-BV-zSW"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="750" constant="130" id="7Oq-2E-X8h"/>
+                            <constraint firstAttribute="trailing" secondItem="0q7-ri-MyY" secondAttribute="trailing" constant="10" id="3Hd-zv-BAf"/>
+                            <constraint firstAttribute="height" constant="150" id="7Oq-2E-X8h"/>
                             <constraint firstAttribute="trailing" secondItem="Kpd-f1-3b6" secondAttribute="trailing" constant="10" id="CB5-g0-eN3"/>
                             <constraint firstAttribute="trailing" secondItem="5bi-fr-QkA" secondAttribute="trailing" constant="10" id="FuN-4j-xwg"/>
                             <constraint firstItem="Kpd-f1-3b6" firstAttribute="top" secondItem="5bi-fr-QkA" secondAttribute="bottom" constant="5" id="Hlc-SC-Kf1"/>
                             <constraint firstItem="5bi-fr-QkA" firstAttribute="top" secondItem="0uk-IE-UYK" secondAttribute="top" constant="10" id="Rv2-Pw-Uwg"/>
                             <constraint firstItem="Kpd-f1-3b6" firstAttribute="leading" secondItem="0uk-IE-UYK" secondAttribute="leading" constant="10" id="Yrk-SI-UPk"/>
-                            <constraint firstAttribute="bottom" secondItem="0q7-ri-MyY" secondAttribute="bottom" constant="5" id="aYS-aF-RP3"/>
-                            <constraint firstItem="0q7-ri-MyY" firstAttribute="top" secondItem="Kpd-f1-3b6" secondAttribute="bottom" constant="10" id="ld9-L5-dx5"/>
-                            <constraint firstAttribute="trailing" secondItem="0q7-ri-MyY" secondAttribute="trailing" constant="10" id="nVZ-qn-SjN"/>
+                            <constraint firstItem="0q7-ri-MyY" firstAttribute="top" secondItem="Kpd-f1-3b6" secondAttribute="bottom" constant="10" id="kQc-fG-xiW"/>
                             <constraint firstItem="5bi-fr-QkA" firstAttribute="leading" secondItem="0uk-IE-UYK" secondAttribute="leading" constant="10" id="rcG-ku-Q4H"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jae-KA-VCo">
-                        <rect key="frame" x="10" y="150" width="300" height="260"/>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jae-KA-VCo">
+                        <rect key="frame" x="10" y="150" width="300" height="264"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="C3n-fs-Xju">
                                 <rect key="frame" x="10" y="5" width="280" height="195"/>
@@ -156,12 +164,21 @@
                                                             <action selector="btnCloseAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Kx3-hT-w5B"/>
                                                         </connections>
                                                     </button>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Experience" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6pl-zC-Dc3">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6pl-zC-Dc3" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                                         <rect key="frame" x="10" y="5" width="230" height="35"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="textColor" systemColor="labelColor"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Experience"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="-1" id="hLt-ob-ikz"/>
+                                                        </connections>
                                                     </textView>
                                                 </subviews>
                                                 <constraints>
@@ -174,15 +191,24 @@
                                                     <constraint firstItem="6pl-zC-Dc3" firstAttribute="top" secondItem="IRG-e3-hNA" secondAttribute="top" constant="5" id="xO1-W3-pqe"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Company Name" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x1F-JZ-waV">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x1F-JZ-waV" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                                 <rect key="frame" x="10" y="40" width="260" height="35"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="9SW-Nt-opl"/>
                                                 </constraints>
-                                                <color key="textColor" systemColor="labelColor"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Company Name"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="-1" id="4Qc-wG-cXg"/>
+                                                </connections>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xhR-y9-uJF">
                                                 <rect key="frame" x="10" y="80" width="260" height="40"/>
@@ -333,12 +359,9 @@
                                     <constraint firstItem="3hN-jL-qEw" firstAttribute="top" secondItem="C3n-fs-Xju" secondAttribute="top" id="ws5-no-xqC"/>
                                 </constraints>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kd6-3F-wug">
-                                <rect key="frame" x="10" y="210" width="280" height="30"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kd6-3F-wug" customClass="customTblView" customModule="Teach_You" customModuleProvider="target">
+                                <rect key="frame" x="10" y="210" width="280" height="34"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="VTh-kT-YSF"/>
-                                </constraints>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -348,13 +371,13 @@
                             <constraint firstAttribute="trailing" secondItem="C3n-fs-Xju" secondAttribute="trailing" constant="10" id="Cr0-gV-S8E"/>
                             <constraint firstItem="kd6-3F-wug" firstAttribute="top" secondItem="C3n-fs-Xju" secondAttribute="bottom" constant="10" id="E3U-ag-ox0"/>
                             <constraint firstItem="kd6-3F-wug" firstAttribute="leading" secondItem="Jae-KA-VCo" secondAttribute="leading" constant="10" id="V46-G6-SF5"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="260" id="Vw7-ps-uRl"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="40" id="Vw7-ps-uRl"/>
                             <constraint firstAttribute="bottom" secondItem="kd6-3F-wug" secondAttribute="bottom" priority="750" constant="20" id="dPU-3d-lQ7"/>
                             <constraint firstItem="C3n-fs-Xju" firstAttribute="top" secondItem="Jae-KA-VCo" secondAttribute="top" constant="5" id="zyj-6X-SAa"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8B0-5C-5XA">
-                        <rect key="frame" x="10" y="420" width="300" height="260"/>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8B0-5C-5XA">
+                        <rect key="frame" x="10" y="424" width="300" height="260"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="inZ-uo-CVY">
                                 <rect key="frame" x="10" y="5" width="280" height="195"/>
@@ -428,12 +451,21 @@
                                                             <action selector="btnCloseAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ld5-HO-OMU"/>
                                                         </connections>
                                                     </button>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="School/College Name" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z1T-FD-MX2">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Z1T-FD-MX2" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                                         <rect key="frame" x="25" y="5" width="215" height="35"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="textColor" systemColor="labelColor"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="School/College Name"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="-1" id="7uo-4T-har"/>
+                                                        </connections>
                                                     </textView>
                                                 </subviews>
                                                 <constraints>
@@ -448,15 +480,24 @@
                                                     <constraint firstItem="OmZ-eK-sxI" firstAttribute="centerY" secondItem="81l-JV-khi" secondAttribute="centerY" id="ufk-xd-ipd"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Degree" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6zh-2C-iuM">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6zh-2C-iuM" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                                 <rect key="frame" x="10" y="40" width="260" height="35"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="EIr-5L-Srq"/>
                                                 </constraints>
-                                                <color key="textColor" systemColor="labelColor"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Degree"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="-1" id="1es-1W-gN4"/>
+                                                </connections>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="IhV-RX-fEp">
                                                 <rect key="frame" x="10" y="80" width="260" height="40"/>
@@ -599,12 +640,9 @@
                                     <constraint firstItem="dMz-ex-a7x" firstAttribute="leading" secondItem="inZ-uo-CVY" secondAttribute="leading" id="Ps2-pJ-O3y"/>
                                 </constraints>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xx1-1n-iFl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xx1-1n-iFl" customClass="customTblView" customModule="Teach_You" customModuleProvider="target">
                                 <rect key="frame" x="10" y="210" width="280" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="31T-IQ-aJF"/>
-                                </constraints>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -616,11 +654,11 @@
                             <constraint firstItem="xx1-1n-iFl" firstAttribute="leading" secondItem="8B0-5C-5XA" secondAttribute="leading" constant="10" id="Pv4-0c-5wm"/>
                             <constraint firstAttribute="trailing" secondItem="inZ-uo-CVY" secondAttribute="trailing" constant="10" id="jSH-wJ-3Ot"/>
                             <constraint firstItem="inZ-uo-CVY" firstAttribute="leading" secondItem="8B0-5C-5XA" secondAttribute="leading" constant="10" id="r7D-dV-pyT"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="260" id="shu-EC-jKt"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="40" id="shu-EC-jKt"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTg-vC-R5Z">
-                        <rect key="frame" x="10" y="690" width="300" height="160"/>
+                        <rect key="frame" x="10" y="694" width="300" height="160"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="l3j-Df-imn">
                                 <rect key="frame" x="10" y="5" width="280" height="150"/>
@@ -667,7 +705,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rlr-nD-ffh">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rlr-nD-ffh" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                         <rect key="frame" x="0.0" y="60" width="280" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -676,6 +714,12 @@
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Add Skills"/>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fI-Fo-bSl">
                                         <rect key="frame" x="0.0" y="105" width="280" height="45"/>
@@ -741,7 +785,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vmh-8u-FFO">
-                        <rect key="frame" x="10" y="860" width="300" height="160"/>
+                        <rect key="frame" x="10" y="864" width="300" height="160"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fEt-6R-0jJ">
                                 <rect key="frame" x="10" y="5" width="280" height="150"/>
@@ -788,7 +832,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ozB-QP-MVM">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ozB-QP-MVM" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                         <rect key="frame" x="0.0" y="60" width="280" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -797,6 +841,12 @@
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Add Language"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
+                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nyi-YW-hoS">
                                         <rect key="frame" x="0.0" y="105" width="280" height="45"/>
@@ -862,7 +912,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrM-bT-bsc">
-                        <rect key="frame" x="10" y="1030" width="300" height="160"/>
+                        <rect key="frame" x="10" y="1034" width="300" height="160"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8dd-Oo-iEu">
                                 <rect key="frame" x="10" y="5" width="280" height="150"/>
@@ -909,7 +959,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KfM-gd-c9P">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KfM-gd-c9P" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
                                         <rect key="frame" x="0.0" y="60" width="280" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -918,6 +968,9 @@
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Add Intrests"/>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pla-Jl-uOe">
                                         <rect key="frame" x="0.0" y="105" width="280" height="45"/>
@@ -1006,7 +1059,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" red="0.10980392160000001" green="0.72549019609999998" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="aboutTV" destination="Kpd-f1-3b6" id="uTc-Ar-xyQ"/>
                 <outlet property="addEducationOutlet" destination="BBb-mV-PSd" id="6H8-iP-o3k"/>
@@ -1017,7 +1070,6 @@
                 <outlet property="bgIntrestVw" destination="JrM-bT-bsc" id="bvC-I1-Xw9"/>
                 <outlet property="bgLanguageVw" destination="Vmh-8u-FFO" id="Xkh-Ii-mNm"/>
                 <outlet property="bgSkillsVw" destination="BTg-vC-R5Z" id="kS4-sJ-0V0"/>
-                <outlet property="btnAboutSubmitHeightConstraint" destination="uLc-Z3-f5g" id="W52-AQ-vG3"/>
                 <outlet property="btnEditIntrestsOutlet" destination="MtJ-L4-CHg" id="jYS-IV-clS"/>
                 <outlet property="btnEditLanguageOutlet" destination="jgg-F0-UT1" id="nIB-4A-xKa"/>
                 <outlet property="btnEditSkillOutlet" destination="CnD-cM-9H4" id="15q-0Y-fT4"/>
@@ -1034,9 +1086,7 @@
                 <outlet property="lblLanguage" destination="EVP-Zt-Lva" id="Td9-A5-t7i"/>
                 <outlet property="lblSkills" destination="eO0-Mj-biF" id="P68-yU-tIl"/>
                 <outlet property="tblEducation" destination="xx1-1n-iFl" id="4bJ-nD-jOw"/>
-                <outlet property="tblEducationHeightConstraint" destination="31T-IQ-aJF" id="MuR-uB-Xha"/>
                 <outlet property="tblExperience" destination="kd6-3F-wug" id="Grl-O5-Hp1"/>
-                <outlet property="tblExperinceHeightConstraint" destination="VTh-kT-YSF" id="Nat-9t-vjD"/>
                 <outlet property="txtDegreeName" destination="6zh-2C-iuM" id="nev-2n-x8b"/>
                 <outlet property="txtSchoolName" destination="Z1T-FD-MX2" id="ohG-BW-Hl7"/>
                 <outlet property="txtvwAddIntrests" destination="KfM-gd-c9P" id="MyK-u3-Dxo"/>
@@ -1058,6 +1108,9 @@
         </tableViewCell>
     </objects>
     <designables>
+        <designable name="0q7-ri-MyY">
+            <size key="intrinsicContentSize" width="57" height="30"/>
+        </designable>
         <designable name="H8r-zD-lRA">
             <size key="intrinsicContentSize" width="48" height="30"/>
         </designable>
@@ -1078,7 +1131,6 @@
     <resources>
         <image name="cross_btn" width="50" height="50"/>
         <image name="pencil" width="22.5" height="22.5"/>
-        <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="unchecked" width="16" height="16"/>
         <systemColor name="labelColor">

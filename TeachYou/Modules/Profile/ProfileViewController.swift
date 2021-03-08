@@ -10,6 +10,9 @@ import UIKit
 import Alamofire
 import KRProgressHUD
 
+
+
+
 enum SelectedTab {
     case discussion
     case about
@@ -31,36 +34,42 @@ enum SelectedSubTab {
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableMAinView: customTblView!
     @IBOutlet weak var viewRatingList: UIView!
     @IBOutlet weak var tblRatingView: UITableView!
     @IBOutlet weak var viewRatingPopup: UIView!
     @IBOutlet weak var viewEditCommenPopup: UIView!
-
     @IBOutlet weak var txtViewEditComent: UITextView!
- 
     @IBOutlet weak var tbleHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tblBottomConstraint: NSLayoutConstraint!
 
-    @IBAction func btnRatinViewListAction(_ sender: UIButton) {
-        viewRatingList.isHidden = true
-        viewRatingPopup.isHidden = true
+    @IBOutlet weak var viewEditExperience: UIView!
+    @IBOutlet weak var viewEditEducation: UIView!
     
-    }
    
-    @IBAction func btnEditCommentSubmitAction(_ sender: Any) {
-        if txtViewEditComent.text == "" {
-            Utilities.showAlert(title: "", message: "", buttons: ["Ok": {}])
-        }
-        editcommentOnPost(id: "\(self.editCommentId)", message: txtViewEditComent.text)
-
-    }
     @IBAction func btnEditCommentCancelAction(_ sender: Any) {
         viewRatingPopup.isHidden = true
         viewRatingList.isHidden = true
     
     }
-  
+  //Popup Edit Education OR Experience
+   
+    
+    @IBOutlet weak var txtviewPopupColgName: UITextView!
+    @IBOutlet weak var txtviewDegree: UITextView!
+
+    @IBOutlet weak var txtviewPopupExperience: UITextView!
+    @IBOutlet weak var txtviewCompanyName: UITextView!
+    @IBOutlet weak var viewEndDate: UIView!
+    @IBOutlet weak var btnOutletStartDate: UIButton!
+    @IBOutlet weak var btnOutletEndDate: UIButton!
+    @IBOutlet weak var imgCheckPresentDate: UIImageView!
+    @IBOutlet weak var btnOutletEduStarDate: UIButton!
+    @IBOutlet weak var btnOutletExpEndDate: UIButton!
+    @IBOutlet weak var imgEduCheckPresentDate: UIImageView!
+    @IBOutlet weak var viewExpEndDate: UIView!
+    @IBOutlet weak var btnEduPresentlyOutlet: UIButton!
+    @IBOutlet weak var btnExpPresentlyOutlet: UIButton!
     
     var addStoryTapped = false
     var selectedTab : SelectedTab = .discussion
@@ -95,11 +104,17 @@ class ProfileViewController: UIViewController {
     var strIntrests = ""
     
     
+    var strTitle = ""
+    var strSubTitlee = ""
+    var strStartDatr = ""
+    var strEndDate = ""
+    var strPresent = 0
+    var strexp_eduID = 0
+    var selectDateFor = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        tableView.delegate = self
-        tableView.dataSource = self
         initialSetUp()
     }
     
@@ -112,25 +127,32 @@ class ProfileViewController: UIViewController {
         getFollowers()
         getFollowingMembers()
         getDiscussionPosts()
+        getAbout()
+        
+        tableMAinView.delegate = self
+        tableMAinView.dataSource = self
+
         self.tblRatingView.register(UINib(nibName: "StarAppreciatesTVCell", bundle: nil), forCellReuseIdentifier: "StarAppreciatesTVCell")
         
-        self.tableView.register(UINib(nibName: "ProfileArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfileArticleTableViewCell")
+        self.tableMAinView.register(UINib(nibName: "ProfileArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfileArticleTableViewCell")
 
-        self.tableView.register(UINib(nibName: "ProfilePhotosTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfilePhotosTableViewCell")
+        self.tableMAinView.register(UINib(nibName: "ProfilePhotosTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfilePhotosTableViewCell")
         
-        self.tableView.register(UINib(nibName: "ProfileEventTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfileEventTableViewCell")
+        self.tableMAinView.register(UINib(nibName: "ProfileEventTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfileEventTableViewCell")
      
-        self.tableView.register(UINib(nibName: "ProfileFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfileFriendTableViewCell")
+        self.tableMAinView.register(UINib(nibName: "ProfileFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfileFriendTableViewCell")
 
-        self.tableView.register(UINib(nibName: "ProfileAboutTVCell", bundle: nil), forCellReuseIdentifier: "ProfileAboutTVCell")
-        self.tableView.register(UINib(nibName: "AboutTVCell", bundle: nil), forCellReuseIdentifier: "AboutTVCell")
+        self.tableMAinView.register(UINib(nibName: "ProfileAboutTVCell", bundle: nil), forCellReuseIdentifier: "ProfileAboutTVCell")
+        self.tableMAinView.register(UINib(nibName: "AboutTVCell", bundle: nil), forCellReuseIdentifier: "AboutTVCell")
 
         
         
         viewRatingList.isHidden = true
         viewRatingPopup.isHidden = true
         viewEditCommenPopup.isHidden = true
-
+        viewEditEducation.isHidden = true
+        viewEditExperience.isHidden = true
+        
     }
     
 }
@@ -186,7 +208,8 @@ print(parameters)
             Utilities.showAlert(title: "Post", message: "Story uploaded successfully", buttons: ["Ok": {}])
             self.getDiscussionPosts()
             self.docData.removeAll()
-            self.tableView.reloadData()
+            self.tableMAinView.reloadData()
+            self.tableMAinView.layoutIfNeeded()
             CustomPopUpView.instance.parentView.removeFromSuperview()
 
         })
@@ -213,7 +236,7 @@ print("error")
                 print(response)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.tableView.isHidden = false
+                    self.tableMAinView.isHidden = false
                 }
                 KRProgressHUD.dismiss()
                 guard let dataResponse = response.data else {
@@ -248,7 +271,7 @@ print("error")
                 print(response)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.tableView.isHidden = false
+                    self.tableMAinView.isHidden = false
                     KRProgressHUD.dismiss()
                 }
                 
@@ -261,7 +284,8 @@ print("error")
                     print(objRes?["status"] ?? "")
                   //  self.getPosts()
                     self.getDiscussionPosts()
-                    self.tableView.reloadData()
+                    self.tableMAinView.reloadData()
+                    self.tableMAinView.layoutIfNeeded()
 
 
                 } catch let error{
@@ -288,7 +312,7 @@ print("error")
                 print(response)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.tableView.isHidden = false
+                    self.tableMAinView.isHidden = false
                     KRProgressHUD.dismiss()
                 }
                 
@@ -328,7 +352,7 @@ print("error")
                 print(response)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.tableView.isHidden = false
+                    self.tableMAinView.isHidden = false
                     KRProgressHUD.dismiss()
                 }
                 
@@ -343,6 +367,9 @@ print("error")
                     self.getDiscussionPosts()
                     self.viewRatingList.isHidden = true
                     self.viewEditCommenPopup.isHidden = true
+                    self.viewEditEducation.isHidden = true
+                    self.viewEditExperience.isHidden = true
+
                 } catch let error{
                     print(error)
                 }
@@ -368,7 +395,7 @@ print("error")
                 print(response)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.tableView.isHidden = false
+                    self.tableMAinView.isHidden = false
                     KRProgressHUD.dismiss()
                 }
                 
@@ -405,7 +432,7 @@ print("error")
                 print(response)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.tableView.isHidden = false
+                    self.tableMAinView.isHidden = false
                 }
                 KRProgressHUD.dismiss()
                 
@@ -459,6 +486,9 @@ print("error")
                     self.viewRatingList.isHidden = false
                     self.viewRatingPopup.isHidden = false
                     self.viewEditCommenPopup.isHidden = true
+                    self.viewEditEducation.isHidden = true
+                    self.viewEditExperience.isHidden = true
+
 
                 } catch let error{
                     print(error)
@@ -482,7 +512,8 @@ print("error")
                 print(response)
                 KRProgressHUD.dismiss()
                 self.getDiscussionPosts()
-                self.tableView.reloadData()
+                self.tableMAinView.reloadData()
+                self.tableMAinView.layoutIfNeeded()
                 CustomPopUpView.instance.viewPublic.isHidden = true
                 CustomPopUpView.instance.parentView.removeFromSuperview()
         }
@@ -539,13 +570,14 @@ print("error")
                     }
                     KRProgressHUD.dismiss()
                     let getiPhone = self.getPhoneScreen()
-                   
+
                     if getiPhone == .iphone6 || getiPhone == .iphonePlus {
-                        self.tblBottomConstraint.constant = 50
+                        self.tblBottomConstraint.constant = 150
                     }else{
-                        self.tblBottomConstraint.constant = 0
+                      self.tblBottomConstraint.constant = 50
                     }
-                    self.tableView.reloadData()
+                    self.tableMAinView.reloadData()
+                    self.tableMAinView.layoutIfNeeded()
                 } catch let error{
                     print(error)
                 }
@@ -578,7 +610,8 @@ print("error")
                     KRProgressHUD.dismiss()
 
                     if self.arrArticles.count>0 {
-                        self.tableView.reloadData()
+                        self.tableMAinView.reloadData()
+                        self.tableMAinView.layoutIfNeeded()
                     }
                 }
         }
@@ -611,7 +644,7 @@ print("error")
                         self.eventsModel.append(each)
                     }
                     KRProgressHUD.dismiss()
-                    self.tableView.reloadData()
+                    self.tableMAinView.reloadData()
                 } catch let error{
                     print(error)
                 }
@@ -630,6 +663,13 @@ print("error")
         AF.request(url!, method: .post, parameters: parameters)
             .responseJSON { response in
                 //to get status code
+                let getiPhone = self.getPhoneScreen()
+                if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+                    self.tblBottomConstraint.constant = 150
+                }else{
+                self.tblBottomConstraint.constant = 50
+                }
+                
                 if let respData = response.value as? NSDictionary{
                     let strMsg = respData["message"] as! String
                     let fullMesgArr = strMsg.components(separatedBy: " ")
@@ -638,7 +678,8 @@ print("error")
 
                 }
                 KRProgressHUD.dismiss()
-                   self.tableView.reloadData()
+                   self.tableMAinView.reloadData()
+                self.tableMAinView.layoutIfNeeded()
 
         }
     }
@@ -656,7 +697,14 @@ print("error")
         AF.request(url!, method: .post, parameters: parameters)
             .responseJSON { response in
                 //to get status code
-
+             
+                let getiPhone = self.getPhoneScreen()
+                if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+                    self.tblBottomConstraint.constant = 150
+                }else{
+                    self.tblBottomConstraint.constant = 50
+                }
+                
                 if let respData = response.value as? NSDictionary{
                     let strMsg = respData["message"] as! String
                     let fullMesgArr = strMsg.components(separatedBy: " ")
@@ -664,7 +712,7 @@ print("error")
                     self.followingCount = Int(fullMesg) ?? 0
 
                 }
-                    self.tableView.reloadData()
+                    self.tableMAinView.reloadData()
         }
     }
     
@@ -694,7 +742,8 @@ print("error")
                     KRProgressHUD.dismiss()
 
                     if self.arrImages.count>0 {
-                        self.tableView.reloadData()
+                        self.tableMAinView.reloadData()
+                        self.tableMAinView.layoutIfNeeded()
                     }
                 }
 
@@ -755,8 +804,15 @@ print("error")
                                    // DispatchQueue.main.async {
                                      //   self.tbleHeightConstraint.constant = CGFloat(allCount*100) //+ 10
                                    // }
-                                    
-                                    self.tableView.reloadData()
+                                    let getiPhone = self.getPhoneScreen()
+                                    if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+                                        self.tblBottomConstraint.constant = 150
+                                    }else{
+                                        self.tblBottomConstraint.constant = 50
+                                    }
+//
+                                    self.tableMAinView.reloadData()
+                                    self.tableMAinView.layoutIfNeeded()
                                 } catch let error{
                                     print(error)
                                 }
@@ -787,7 +843,7 @@ print("error")
                     for each in objRes.all_data ?? [] {
                         self.friendsModel.append(each)
                     }
-                    self.tableView.reloadData()
+                    self.tableMAinView.reloadData()
                 } catch let error{
                     print(error)
                 }
@@ -819,6 +875,82 @@ print("error")
                 CustomPopUpView.instance.viewPublic.isHidden = true
                 CustomPopUpView.instance.parentView.removeFromSuperview()
         }
+    }
+   
+    func addEducation(eduSchoolName: String, eduDegree: String, eduStartDatr: String, eduEndDate: String, eduPresent: Int, eduId: Int) {
+        KRProgressHUD.show()
+        let parameters: [String: Any] = [
+            "action" : "addEditEducation",
+            "user_id" : UserSessionManager.shared.getUserId() ?? "",
+            "action_name" : ProfileAboutString.edu_ActionType,//"Edit"
+            "user_edu_major" : txtviewPopupColgName.text ?? "",
+            "user_edu_degree" : txtviewDegree.text ?? "",
+            "edu_from_date" : strStartDatr,
+            "edu_present" : ProfileAboutString.edu_Present,
+            "edu_to_date" : strEndDate,
+            "edu_id" : eduId
+         ]
+        print(parameters)
+        let urlString = AppConstants.BASE_URL
+        let url = URL.init(string: urlString)
+        
+        AF.request(url!, method: .post, parameters: parameters)
+            .responseJSON { response in
+                //to get status code
+                KRProgressHUD.dismiss()
+              
+              if let respValuev = response.value as?[String:Any] {
+                let status = respValuev["status"] as? Bool
+                if status == true{
+                    self.viewRatingList.isHidden = true
+                    self.viewRatingPopup.isHidden = true
+                    self.viewEditCommenPopup.isHidden = true
+                    self.viewEditEducation.isHidden = true
+                    self.viewEditExperience.isHidden = true
+                    self.getAbout()
+                }
+                }
+                                
+            }
+        
+    }
+    
+    func AddExperience(expWorkTitle: String, expCompanyName: String, expStartDatr: String, expEndDate: String, expPresent: Int, expId: Int) {
+        KRProgressHUD.show()
+        let parameters: [String: Any] = [
+            "action" : "addEditExperience",
+            "user_id" : UserSessionManager.shared.getUserId() ?? "",
+            "action_name" : ProfileAboutString.exp_ActionType,//"Edit"
+            "user_work_title" : txtviewPopupExperience.text ?? "",
+            "user_work_place" : txtviewCompanyName.text ?? "",
+            "user_work_from_date" : strStartDatr,
+            "user_work_present" : ProfileAboutString.exp_Present,
+            "user_work_to_date" : strEndDate,
+            "exp_id" : expId
+         ]
+        print(parameters)
+        let urlString = AppConstants.BASE_URL
+        let url = URL.init(string: urlString)
+        
+        AF.request(url!, method: .post, parameters: parameters)
+            .responseJSON { response in
+                //to get status code
+                KRProgressHUD.dismiss()
+              
+              if let respValuev = response.value as?[String:Any] {
+                let status = respValuev["status"] as? Bool
+                if status == true{
+                    self.viewRatingList.isHidden = true
+                    self.viewRatingPopup.isHidden = true
+                    self.viewEditCommenPopup.isHidden = true
+                    self.viewEditEducation.isHidden = true
+                    self.viewEditExperience.isHidden = true
+                    self.getAbout()
+                }
+                }
+                                
+            }
+        
     }
 }
 
@@ -967,13 +1099,12 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
                     return cell
                 }else if selectedTab == .about{
-                    print(indexPath.row)
-                    if indexPath.row == 3{
-                        print("Hello")
-                    }
+                    
                     let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileAboutTVCell", for: indexPath) as! ProfileAboutTVCell
+                    cell.viewCntrl = self
                     cell.setData(userData: userData)
-                    cell.tableView = tableView
+                    cell.delegate = self
+                    cell.tableViewMain = tableView
                     return cell
                     
                 }
@@ -987,7 +1118,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == tblRatingView {
             return 60
-        }else{
+        }else if tableView == self.tableMAinView{
         if indexPath.row == 0 {
             return 200
         } else if indexPath.row == 1 {
@@ -996,7 +1127,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             if selectedTab == .discussion {
                 return UITableView.automaticDimension
             }else if selectedTab == .about{
-                return 1250//UITableView.automaticDimension
+                return UITableView.automaticDimension
             }else if selectedTab == .articles{
                 return 150
             }else if selectedTab == .photos{
@@ -1012,13 +1143,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
 
     }
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        if selectedTab == .about{
-            return 2000
-        }
-        return UITableView.automaticDimension
-    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if selectedTab == .articles{
         let vc = Utilities.viewConrollerObject(identifier: "ArticleDetailsVC", storyboard: StoryBoardConstants.kMainStoryBoard) as! ArticleDetailsVC
@@ -1029,8 +1154,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc  func EditPostAction(_ sender: UIButton) {
-        let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tableView)
-        let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
+        let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tableMAinView)
+        let indexPath = self.tableMAinView.indexPathForRow(at: buttonPosition)
         
         let obj = self.postsModel[indexPath!.row-2]
        let id:Int = obj.post_id!
@@ -1050,8 +1175,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         CustomPopUpView.instance.delegate = self
     }
     @objc  func DeletePostAction(_ sender: UIButton) {
-        let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tableView)
-        let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
+        let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tableMAinView)
+        let indexPath = self.tableMAinView.indexPathForRow(at: buttonPosition)
         
         let obj = self.postsModel[indexPath!.row-2]
         let id:Int = obj.post_id!
@@ -1064,8 +1189,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
     }
 
-    
-    
     @objc func segueToEditVC() {
         let vc = Utilities.viewConrollerObject(identifier: "EditProfileViewController", storyboard: StoryBoardConstants.kProfileStoryBoard) as! EditProfileViewController
         self.navigationController?.pushViewController(vc, animated: true)
@@ -1073,8 +1196,106 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     
 }
+//extension ProfileViewController: UITextViewDelegate{
+//    
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        if textView.textColor == UIColor.lightGray {
+//            textView.text = nil
+//            textView.textColor = UIColor.black
+//        }
+//    }
+//    
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//
+//        if txtviewPopupExperience.text.isEmpty{
+//            txtviewPopupExperience.text = "Experience"
+//            txtviewPopupExperience.textColor = UIColor.lightGray
+//        }
+//        if txtviewCompanyName.text.isEmpty{
+//            txtviewCompanyName.text = "Company Name"
+//            txtviewCompanyName.textColor = UIColor.lightGray
+//        }
+//        if txtviewPopupColgName.text.isEmpty{
+//            txtviewPopupColgName.text = "School/Collage Name"
+//            txtviewPopupColgName.textColor = UIColor.lightGray
+//        }
+//        if txtviewDegree.text.isEmpty{
+//            txtviewDegree.text = "Degree"
+//            txtviewDegree.textColor = UIColor.lightGray
+//        }
+//    }
+//}
+extension ProfileViewController : ProfileAboutTVCellDelegate{
+    func editExperience(expWorkTitle: String, expCompanyName: String, expStartDatr: String, expEndDate: String, expPresent: Int, expId: Int) {
+        
+        strTitle = txtviewPopupExperience.text
+        strSubTitlee = txtviewCompanyName.text
+        strStartDatr = expStartDatr//btnOutletEduStarDate.currentTitle ?? ""
+        strEndDate = expEndDate//btnOutletEduEndDate.currentTitle ?? ""
+        strPresent = expPresent
+        strexp_eduID = expId
+        //exp - btnOutletEduStarDate,btnOutletEduEndDate
+        //edu = btnOutletStartDate,btnOutletEndDate
+        txtviewPopupExperience.text = expWorkTitle
+        txtviewCompanyName.text = expCompanyName
+        btnOutletEduStarDate.setTitle(expStartDatr, for: .normal)
+        btnOutletEduStarDate.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        if expPresent == 1{
+            viewExpEndDate.isHidden = true
+          //  imgCheckPresentDate.image = #imageLiteral(resourceName: "checked")
+            imgEduCheckPresentDate.image = #imageLiteral(resourceName: "checked")
+            btnExpPresentlyOutlet.isSelected = true
 
+        }else{
+            btnOutletExpEndDate.setTitle(expEndDate, for: .normal)
+            btnOutletExpEndDate.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+            
+            viewExpEndDate.isHidden = false
+            imgEduCheckPresentDate.image = #imageLiteral(resourceName: "unchecked")
+        }
+        viewRatingList.isHidden = false
+        viewRatingPopup.isHidden = true
+        viewEditCommenPopup.isHidden = true
+        viewEditEducation.isHidden = true
+        viewEditExperience.isHidden = false
 
+    }
+    
+    func editEducation(eduSchoolName: String, eduDegree: String, eduStartDatr: String, eduEndDate: String, eduPresent: Int, eduId: Int) {
+        strTitle = eduSchoolName
+        strSubTitlee = eduDegree
+        strStartDatr = eduStartDatr
+        strEndDate = eduEndDate
+        strPresent = eduPresent
+        strexp_eduID = eduId
+        
+        txtviewPopupColgName.text = eduSchoolName
+        txtviewDegree.text = eduDegree
+        btnOutletStartDate.setTitle(eduStartDatr, for: .normal)
+        btnOutletStartDate.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        if eduPresent == 1{
+            viewEndDate.isHidden = true
+            imgCheckPresentDate.image = #imageLiteral(resourceName: "checked")
+            btnEduPresentlyOutlet.isSelected = true
+        }else{
+            btnOutletEndDate.setTitle(eduEndDate, for: .normal)
+            btnOutletEndDate.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+            viewEndDate.isHidden = false
+            imgCheckPresentDate.image = #imageLiteral(resourceName: "unchecked")
+
+        }
+        viewRatingList.isHidden = false
+        viewRatingPopup.isHidden = true
+        viewEditCommenPopup.isHidden = true
+        viewEditEducation.isHidden = false
+        viewEditExperience.isHidden = true
+    }
+    
+    
+   
+    
+    
+}
 extension ProfileViewController: ProfileHeadingCellDelegate {
     
     func btnSelected(type: SelectedTab) {
@@ -1082,9 +1303,9 @@ extension ProfileViewController: ProfileHeadingCellDelegate {
         let getiPhone = self.getPhoneScreen()
        
         if getiPhone == .iphone6 || getiPhone == .iphonePlus {
-            self.tblBottomConstraint.constant = 50
+            self.tblBottomConstraint.constant = 150
         }else{
-            self.tblBottomConstraint.constant = 0
+            self.tblBottomConstraint.constant = 50
         }
         self.selectedTab = type
         
@@ -1092,29 +1313,28 @@ extension ProfileViewController: ProfileHeadingCellDelegate {
             
         case .discussion:
             getDiscussionPosts()
-            self.tableView.reloadData()
+            self.tableMAinView.reloadData()
         case .about:
+            
+           self.tableMAinView.reloadData()
+            self.tableMAinView.layoutIfNeeded()
             getAbout()
-           // self.tableView.reloadData()
-        //AboutProfileViewController
-//            let vc = UIStoryboard.init(name: "Profile", bundle: Bundle.main).instantiateViewController(withIdentifier: "AboutProfileViewController") as? AboutProfileViewController
-//            self.navigationController?.pushViewController(vc!, animated: true)
             
         case .articles:
             getArticles()
           //  self.tableView.reloadData()
         case .photos:
             getPhotos()
-            self.tableView.reloadData()
+            self.tableMAinView.reloadData()
         case .events:
             getEvents()
-            self.tableView.reloadData()
+            self.tableMAinView.reloadData()
         case .friends:
             getFriends()
-            self.tableView.reloadData()
+            self.tableMAinView.reloadData()
         case .videos:
             getVideos()
-            self.tableView.reloadData()
+            self.tableMAinView.reloadData()
         default:
             break
         
@@ -1149,7 +1369,7 @@ extension ProfileViewController: ProfileAboutCellDelegate {
     func btnSelected(type: SelectedSubTab) {
         print(type)
         self.selectedSubType = type
-        self.tableView.reloadData()
+        self.tableMAinView.reloadData()
     }
     
 }
@@ -1242,7 +1462,7 @@ extension ProfileViewController: FeedCellDelegate {
     
     func commentAction() {
         print("comment tapped")
-        self.tableView.reloadData()
+        self.tableMAinView.reloadData()
     }
     
     func reportAction(postId: String) {
@@ -1279,6 +1499,9 @@ extension ProfileViewController : CustomPopUpDelegate {
             viewRatingList.isHidden = false
             viewEditCommenPopup.isHidden = false
             viewRatingPopup.isHidden = true
+            viewEditEducation.isHidden = true
+            viewEditExperience.isHidden = true
+
     
         } else {
             CustomPopUpView.instance.parentView.removeFromSuperview()
@@ -1325,7 +1548,7 @@ extension ProfileViewController : CustomPopUpDelegate {
     func reactToFeedAction(ratings: Int) {
         print("reactToFeedAction tapped")
        // loadingIndicator.isAnimating = true
-        self.tableView.isHidden = false
+        self.tableMAinView.isHidden = false
         
         if self.reactToPostType == "react" {
             reactUnreactToPost(id: self.reactToPostId, type: self.reactToPostType, ratings: "\(ratings)")
@@ -1417,7 +1640,113 @@ extension ProfileViewController : CustomPopUpDelegate {
     
     
 }
+extension ProfileViewController{
+    @IBAction func btnEducationAction(_ sender: UIButton) {
+        let isDOBTapped = false
+        if sender.tag == 10{
+            print("Expreience Start Date")
+            selectDateFor = "Expreience Start Date"
+            Utilities.initDOBPicker(delegate: self, mode: 0, isDOB: isDOBTapped)
 
+
+        }else if sender.tag == 20 {
+            print("Expreience End Date")
+            selectDateFor = "Expreience End Date"
+            Utilities.initDOBPicker(delegate: self, mode: 0, isDOB: isDOBTapped)
+
+        }else if sender.tag == 30 {
+            print("Expreience Presently")
+            if sender.isSelected{
+                sender.isSelected = false
+                viewExpEndDate.isHidden = false
+            //    imgCheckPresentDate.image = #imageLiteral(resourceName: "unchecked")
+                imgEduCheckPresentDate.image = #imageLiteral(resourceName: "unchecked")
+
+                ProfileAboutString.exp_Present = 0
+
+            }else{
+                sender.isSelected = true
+                viewExpEndDate.isHidden = true
+                imgEduCheckPresentDate.image = #imageLiteral(resourceName: "checked")
+                let date = Utilities.getCurrentDate(format: DateFormatterConstant.kdateyyyy_mm_dd)
+                print(date)
+                strEndDate = date
+                ProfileAboutString.exp_Present = 1
+            }
+
+        }else if sender.tag == 40 {
+            print("Education Start Date")
+            selectDateFor = "Education Start Date"
+
+            Utilities.initDOBPicker(delegate: self, mode: 0, isDOB: isDOBTapped)
+
+
+        }else if sender.tag == 50 {
+            print("Education End Date")
+            selectDateFor = "Education End Date"
+
+            Utilities.initDOBPicker(delegate: self, mode: 0, isDOB: isDOBTapped)
+
+
+        }else if sender.tag == 60 {
+            print("Education Presently")
+            if sender.isSelected{
+                sender.isSelected = false
+                viewEndDate.isHidden = false
+                imgCheckPresentDate.image = #imageLiteral(resourceName: "unchecked")
+                ProfileAboutString.edu_Present = 0
+
+
+            }else{
+                sender.isSelected = true
+                viewEndDate.isHidden = true
+                imgCheckPresentDate.image = #imageLiteral(resourceName: "checked")
+                let date = Utilities.getCurrentDate(format: DateFormatterConstant.kdateyyyy_mm_dd)
+                print(date)
+                strEndDate = date
+                ProfileAboutString.edu_Present = 1
+            }
+
+        }
+    }
+    @IBAction func btnEditpopUpAction(_ sender: UIButton) {
+        if sender.tag == 1{
+            viewEditExperience.isHidden = true
+            viewRatingList.isHidden = true
+            tableMAinView.reloadData()
+            tableMAinView.layoutIfNeeded()
+        }else if sender.tag == 2{
+            viewEditEducation.isHidden = true
+            viewRatingList.isHidden = true
+            tableMAinView.reloadData()
+            tableMAinView.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func btnSubmitAction(_ sender: UIButton) {
+        if sender.tag == 10{
+            AddExperience(expWorkTitle: strTitle, expCompanyName: strSubTitlee, expStartDatr: strStartDatr, expEndDate: strEndDate, expPresent: strPresent, expId: strexp_eduID)
+
+        }else if sender.tag == 20{
+            print("Submit Education")
+            addEducation(eduSchoolName: strTitle, eduDegree: strSubTitlee, eduStartDatr: strStartDatr, eduEndDate: strEndDate, eduPresent: strPresent, eduId: strexp_eduID)
+        }
+         
+    }
+    @IBAction func btnRatinViewListAction(_ sender: UIButton) {
+        viewRatingList.isHidden = true
+        viewRatingPopup.isHidden = true
+    
+    }
+   
+    @IBAction func btnEditCommentSubmitAction(_ sender: Any) {
+        if txtViewEditComent.text == "" {
+            Utilities.showAlert(title: "", message: "", buttons: ["Ok": {}])
+        }
+        editcommentOnPost(id: "\(self.editCommentId)", message: txtViewEditComent.text)
+
+    }
+}
 extension ProfileViewController: UIDocumentPickerDelegate{
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
@@ -1480,10 +1809,77 @@ extension ProfileViewController: TransferImage {
     func sendImageToPreviousView(image: UIImage) {
 
     }
+}
+extension ProfileViewController:DatePickerViewDelegate{
+    func dobDoneTapped(value: String) {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = DateFormatterConstant.kMM_dd_yyyy//kdateyyyy_dd_mm
+
+        if selectDateFor == "Expreience Start Date"{
+
+            let showStartDate = inputFormatter.date(from: value)
+            inputFormatter.dateFormat = DateFormatterConstant.kdateyyyy_mm_dd
+            let resultString = inputFormatter.string(from: showStartDate!)
+            strStartDatr = resultString
+           
+            btnOutletEduStarDate.setTitle(resultString, for: .normal)
+            btnOutletEduStarDate.setTitleColor(.black, for: .normal)
+        }else if selectDateFor == "Expreience End Date"{
+            
+            let showEndDate = inputFormatter.date(from: value)
+            inputFormatter.dateFormat = DateFormatterConstant.kdateyyyy_mm_dd
+            let resultString = inputFormatter.string(from: showEndDate!)
+            strEndDate = resultString
+            ProfileAboutString.exp_Present = 0
+            btnOutletExpEndDate.setTitle(resultString, for: .normal)
+            btnOutletExpEndDate.setTitleColor(.black, for: .normal)
+
+        }else if selectDateFor == "Education Start Date"{
+            
+            let showStartDate = inputFormatter.date(from: value)
+            inputFormatter.dateFormat = DateFormatterConstant.kdateyyyy_mm_dd
+            let resultString = inputFormatter.string(from: showStartDate!)
+            strStartDatr = resultString
+            btnOutletStartDate.setTitle(resultString, for: .normal)
+            btnOutletStartDate.setTitleColor(.black, for: .normal)
+            
+        }else if selectDateFor == "Education End Date"{
+            
+            let showEndDate = inputFormatter.date(from: value)
+            inputFormatter.dateFormat = DateFormatterConstant.kdateyyyy_mm_dd
+            let resultString = inputFormatter.string(from: showEndDate!)
+            strEndDate = resultString
+            ProfileAboutString.edu_Present = 0
+            btnOutletEndDate.setTitle(resultString, for: .normal)
+            btnOutletEndDate.setTitleColor(.black, for: .normal)
+        }
+    }
+    
+    func dobCancelTapped() {
+        
+    }
+    
     
 }
-
 
 /*
  
  */
+
+class customTblView: UITableView {
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return self.contentSize
+    }
+    
+    override var contentSize: CGSize {
+        didSet{
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+    
+    override func reloadData() {
+        super.reloadData()
+        self.invalidateIntrinsicContentSize()
+    }
+}
