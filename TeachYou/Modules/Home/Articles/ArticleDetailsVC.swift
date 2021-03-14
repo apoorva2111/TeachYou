@@ -33,6 +33,8 @@ class ArticleDetailsVC: UIViewController {
     var commentText = ""
     var reactToPostType = ""
     var selectedCommentId = ""
+    var profileArticleDetail : NSDictionary?
+    
     let loadingIndicator: ProgressView = {
         let progress = ProgressView(colors: [#colorLiteral(red: 0.6446513191, green: 0.02597923801, blue: 0.1453336775, alpha: 1)], lineWidth: 3)
         progress.translatesAutoresizingMaskIntoConstraints = false
@@ -42,16 +44,31 @@ class ArticleDetailsVC: UIViewController {
     //MARK:- Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         commentsTable.register(UINib(nibName: "PostCommentCell", bundle: nil), forCellReuseIdentifier: "PostCommentCell")
-        self.lblArticleTitle.text = articleDetails?.og_title
-        self.lblUserName.text = articleDetails?.post_author_name
-        self.lblArticleDesc.text = articleDetails?.og_description
-//        self.lblInterested.text = "\(String(describing: articleDetails?.event_interested))"
-        self.articleCoverImgVw.imageFromServerURL(urlString: self.articleDetails?.og_image ?? "") { (image) in
-            //            cell.imgView.image = cell.imgView.image?.crop(to: cell.imgView.frame.size)
-        }
-        self.userProfileImg.imageFromServerURL(urlString: self.articleDetails?.post_author_picture ?? "") { (image) in
-            //            cell.imgView.image = cell.imgView.image?.crop(to: cell.imgView.frame.size)
+       
+        if ProfileAboutString.isFromProfile{
+            ProfileAboutString.isFromProfile = false
+            self.lblArticleTitle.text = profileArticleDetail?["og_title"] as? String
+            self.lblUserName.text = profileArticleDetail?["post_author_name"] as? String
+            self.lblArticleDesc.text = profileArticleDetail?["og_description"] as? String
+       
+            self.articleCoverImgVw.sd_setImage(with: URL(string: profileArticleDetail?["og_image"] as! String), placeholderImage: nil)
+            self.userProfileImg.sd_setImage(with: URL(string: profileArticleDetail?["post_author_picture"] as! String), placeholderImage: nil)
+
+
+        }else{
+            
+            self.lblArticleTitle.text = articleDetails?.og_title
+            self.lblUserName.text = articleDetails?.post_author_name
+            self.lblArticleDesc.text = articleDetails?.og_description
+            //        self.lblInterested.text = "\(String(describing: articleDetails?.event_interested))"
+            self.articleCoverImgVw.imageFromServerURL(urlString: self.articleDetails?.og_image ?? "") { (image) in
+                //            cell.imgView.image = cell.imgView.image?.crop(to: cell.imgView.frame.size)
+            }
+            self.userProfileImg.imageFromServerURL(urlString: self.articleDetails?.post_author_picture ?? "") { (image) in
+                //            cell.imgView.image = cell.imgView.image?.crop(to: cell.imgView.frame.size)
+            }
         }
     }
     

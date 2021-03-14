@@ -11,7 +11,6 @@ import KRProgressHUD
 import Alamofire
 
 protocol ProfileAboutTVCellDelegate {
-    // ,  , , ,
     func editExperience(expWorkTitle: String, expCompanyName:String, expStartDatr:String, expEndDate:String,expPresent:Int, expId:Int)
     func editEducation(eduSchoolName: String, eduDegree:String, eduStartDatr:String, eduEndDate:String,eduPresent:Int, eduId:Int)
 }
@@ -101,6 +100,7 @@ class ProfileAboutTVCell: UITableViewCell {
     }
     
     func setView()  {
+
         bgAboutVw.roundCornerWithShadow(shadowColor: .lightGray, radius: 20, borderWidth: 0, borderColor: .clear, shadowOpacity: 2, shadowRadius: 2, shadowOffsetWidth: 2, shadowOffsetHeight: 2)
 
         bgExperienceVw.roundCornerWithShadow(shadowColor: .lightGray, radius: 20, borderWidth: 0, borderColor: .clear, shadowOpacity: 2, shadowRadius: 2, shadowOffsetWidth: 2, shadowOffsetHeight: 2)
@@ -315,6 +315,12 @@ class ProfileAboutTVCell: UITableViewCell {
             print("Experiance")
                 viewExpwerienceSubmit.isHidden = false
                 viewExperienceDateView.isHidden = false
+            txtvwExperience.text = ""
+            txtvwCompanyName.text = ""
+            btnOutletStartDate.setTitle("Start Date", for: .normal)
+            btnOutletStartDate.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .normal)
+            btnOutletEndDate.setTitle("End Date", for: .normal)
+            btnOutletEndDate.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .normal)
             ProfileAboutString.exp_ActionType = "Add"
 
         
@@ -324,7 +330,13 @@ class ProfileAboutTVCell: UITableViewCell {
                 viewEducationSubmit.isHidden = false
                 viewEducationDateView.isHidden = false
             ProfileAboutString.edu_ActionType = "Add"
-            
+            txtSchoolName.text = ""
+            txtDegreeName.text = ""
+            btnOutletEducationStartDate.setTitle("Start Date", for: .normal)
+            btnOutletEducationStartDate.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .normal)
+            btnOutletEducationEndDate.setTitle("End Date", for: .normal)
+            btnOutletEducationEndDate.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .normal)
+
 
         }else if sender.tag == 40 {
             print("Skills")
@@ -395,26 +407,34 @@ class ProfileAboutTVCell: UITableViewCell {
         }
     }
     @IBAction func btnSubmitAction(_ sender: UIButton) {
+
         if sender.tag == 10{
             print("Submit Experience")
+            ProfileAboutString.isFirstTimeBottomConstraint = true
             AddExperience()
 
         }else if sender.tag == 20{
             print("Submit Education")
+            ProfileAboutString.isFirstTimeBottomConstraint = true
             AddEducation()
         }else if sender.tag == 30{
             print("Submit Skills")
+            ProfileAboutString.isFirstTimeBottomConstraint = false
             addSkill()
             
         }else if sender.tag == 40{
             print("Submit Language")
+            ProfileAboutString.isFirstTimeBottomConstraint = false
             addLanguage()
 
         }else if sender.tag == 50{
             print("Submit intrest")
+            ProfileAboutString.isFirstTimeBottomConstraint = false
+
             AddIntrest()
 
         }else if sender.tag == 60{
+            ProfileAboutString.isFirstTimeBottomConstraint = false
             print("About")
             AddAbout()
         }
@@ -486,6 +506,7 @@ extension ProfileAboutTVCell : UITableViewDelegate,UITableViewDataSource{
     @objc  func deleteEducationAction(_ sender: UIButton) {
       //  let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tblExperience)
         let obj = userProfileData?.educations?[sender.tag]
+        ProfileAboutString.isFirstTimeBottomConstraint = true
         DeleteEducation(eduid: obj?.edu_id ?? 0)
     }
     
@@ -590,6 +611,8 @@ extension ProfileAboutTVCell:DatePickerViewDelegate{
             ProfileAboutString.edu_Present = 0
             btnOutletEducationEndDate.setTitleColor(.black, for: .normal)
         }
+        ProfileAboutString.isFirstTimeBottomConstraint = true
+        viewCntrl?.viewDidLoad()
     }
     
     func dobCancelTapped() {
@@ -637,7 +660,8 @@ extension ProfileAboutTVCell {
                 if status == true{
                     self.viewEducationSubmit.isHidden = true
                     self.viewEducationDateView.isHidden = true
-                    //self.getAbout()
+                    self.getAbout()
+                    ProfileAboutString.isFirstTimeBottomConstraint = true
                     self.viewCntrl?.viewDidLoad()
                 }
                 }
@@ -667,7 +691,7 @@ extension ProfileAboutTVCell {
                 let status = respValuev["status"] as? Bool
                 if status == true{
                     self.btnSubmit.isHidden = true
-                    
+                    self.getAbout()
                     self.viewCntrl?.viewDidLoad()
                 }
                 }
@@ -711,7 +735,6 @@ extension ProfileAboutTVCell {
                     self.viewExpwerienceSubmit.isHidden = true
                     self.viewExperienceDateView.isHidden = true
                    // self.getAbout()
-                    
                     self.viewCntrl?.viewDidLoad()
                 }
                 }
@@ -806,7 +829,9 @@ extension ProfileAboutTVCell {
                     self.lblIntrests.isHidden = false
                     self.btnEditIntrestsOutlet.isSelected = true
                     self.btnEditIntrestsOutlet.setImage(#imageLiteral(resourceName: "pencil"), for: .normal)
-                    self.getAbout()
+                   // self.getAbout()
+                    self.btnEditIntrestsOutlet.isSelected = false
+                    self.viewCntrl?.viewDidLoad()
                 }
                 }
                                 
@@ -819,7 +844,7 @@ extension ProfileAboutTVCell {
             "action" : "update_user_profile",
             "user_id" : UserSessionManager.shared.getUserId() ?? "",
             "action_name" : "profile_sli",
-            "user_language" : txtvwAddLanguage.text ?? ""
+            "user_languages" : txtvwAddLanguage.text ?? ""
          ]
         print(parameters)
         let urlString = AppConstants.BASE_URL
@@ -839,7 +864,9 @@ extension ProfileAboutTVCell {
                     self.lblLanguage.isHidden = false
                     self.btnEditLanguageOutlet.isSelected = true
                     self.btnEditLanguageOutlet.setImage(#imageLiteral(resourceName: "pencil"), for: .normal)
-                    self.getAbout()
+                 //   self.getAbout()
+                    self.btnEditLanguageOutlet.isSelected = false
+                    self.viewCntrl?.viewDidLoad()
                 }
                 }
                                 
@@ -872,7 +899,9 @@ extension ProfileAboutTVCell {
                     self.lblSkills.isHidden = false
                     self.btnEditSkillOutlet.isSelected = true
                     self.btnEditSkillOutlet.setImage(#imageLiteral(resourceName: "pencil"), for: .normal)
-                    self.getAbout()
+                   // self.getAbout()
+                    self.btnEditSkillOutlet.isSelected = false
+                    self.viewCntrl?.viewDidLoad()
                 }
                 }
                                 

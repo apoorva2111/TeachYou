@@ -32,6 +32,9 @@ struct ProfileAboutString {
     static var exp_ActionType = ""
     static var edu_Present = 0
     static var exp_Present = 0
+    static var isFromProfile = false
+    static var isFirstTimeBottomConstraint = false
+
 
 }
 struct ImageString {

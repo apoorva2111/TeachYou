@@ -82,32 +82,15 @@ class ProfileDiscussionTableViewCell: UITableViewCell {
         self.collectionView.dataSource = self
     }
     
-//     func setdata(post : Posts){
-//            self.labelDescription.text = post.og_description
-//            self.labelSubTitle.text = post.privacy
-//            if(imageViewPost != nil){
-//                if (post.photos?.count == 0) || (post.photos?.count == nil) {
-//                    self.imageViewPost.isHidden = true
-//                    self.lblAdded.isHidden = true
-//                } else {
-//                    self.lblAdded.isHidden = false
-//                    self.imageViewPost.isHidden = false
-//                    imageViewPost.imageFromServerURL(urlString: post.og_image ?? "") { (image) in
-//                        self.imgUrl = post.og_image ?? ""
-//                        self.imageViewPost.image = self.imageViewPost.image?.crop(to: self.imageViewPost.frame.size)
-//                    }
-//                }
-//            }
-//            self.labelTitle.text = (post.user_firstname ?? "") + " " + (post.user_lastname ?? "")
-//
-//            var urlComponent = URLComponents()
-//            urlComponent.scheme = "https"
-//            urlComponent.host = AppConstants.BASE_UPDATE_URL
-//            urlComponent.path = post.user_picture ?? ""
-//            guard let url = urlComponent.url else { return }
-//            self.imageViewProfile.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "userPlaceholder"))
-//
-//        }
+     func setdata(post : Posts){
+print(post)
+        self.lblAdded.text = "add a Article"
+        let imgg = post.og_image ?? ""
+        self.imageViewPost.sd_setImage(with: URL(string: imgg), placeholderImage: nil)
+        let strName = (post.user_firstname ?? "") + " " + (post.user_lastname ?? "")
+        self.labelTitle.text = strName
+        self.labelSubTitle.text = post.privacy
+     }
         
         func setMyPostdata(post : Posts?){
             self.postModel = post

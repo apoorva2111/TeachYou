@@ -92,8 +92,7 @@ class FeedVC: UIViewController {
 
         setUpLoadingVw()
         getPosts()
-        getStories()
-      
+        getStories()      
     }
     
     func run(after wait: TimeInterval, closure: @escaping () -> Void) {

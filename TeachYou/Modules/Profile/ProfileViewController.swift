@@ -116,11 +116,25 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
      
         initialSetUp()
+        if ProfileAboutString.isFirstTimeBottomConstraint{
+            ProfileAboutString.isFirstTimeBottomConstraint = false
+            self.tblBottomConstraint.constant = 50
+        }else{
+        self.tblBottomConstraint.constant = 50
+        let getiPhone = self.getPhoneScreen()
+        if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+            self.tblBottomConstraint.constant = 150
+        }else{
+        self.tblBottomConstraint.constant = 50
+        }
+        }
     }
+  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
        // getUserData()
+        
     }
     
     func initialSetUp() {
@@ -442,7 +456,6 @@ print("error")
                 do
                 {
                     let objRes = try JSONSerialization.jsonObject(with: dataResponse) as? [String: AnyObject]
-                    print(objRes)
                     self.getDiscussionPosts()
                     
                 } catch let error{
@@ -569,13 +582,13 @@ print("error")
                         self.postsModel.append(each)
                     }
                     KRProgressHUD.dismiss()
-                    let getiPhone = self.getPhoneScreen()
-
-                    if getiPhone == .iphone6 || getiPhone == .iphonePlus {
-                        self.tblBottomConstraint.constant = 150
-                    }else{
-                      self.tblBottomConstraint.constant = 50
-                    }
+                    //                    let getiPhone = self.getPhoneScreen()
+                    //
+                    //                    if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+                    //                        self.tblBottomConstraint.constant = 150
+                    //                    }else{
+                    //                      self.tblBottomConstraint.constant = 50
+                    //                    }
                     self.tableMAinView.reloadData()
                     self.tableMAinView.layoutIfNeeded()
                 } catch let error{
@@ -583,7 +596,9 @@ print("error")
                 }
         }
     }
-    
+    /*
+     
+     */
     func getArticles() {
         KRProgressHUD.show()
         let parameters: [String: Any] = [
@@ -594,7 +609,7 @@ print("error")
         let url = URL.init(string: urlString)
         
         AF.request(url!, method: .post, parameters: parameters)
-            .responseJSON { response in
+            .responseJSON{ response in
                 //to get status code
 
                 if self.arrArticles.count>0{
@@ -663,14 +678,10 @@ print("error")
         AF.request(url!, method: .post, parameters: parameters)
             .responseJSON { response in
                 //to get status code
-                let getiPhone = self.getPhoneScreen()
-                if getiPhone == .iphone6 || getiPhone == .iphonePlus {
-                    self.tblBottomConstraint.constant = 150
-                }else{
-                self.tblBottomConstraint.constant = 50
-                }
+               
                 
                 if let respData = response.value as? NSDictionary{
+                    print(respData)
                     let strMsg = respData["message"] as! String
                     let fullMesgArr = strMsg.components(separatedBy: " ")
                     let fullMesg: String = fullMesgArr[0]
@@ -698,12 +709,12 @@ print("error")
             .responseJSON { response in
                 //to get status code
              
-                let getiPhone = self.getPhoneScreen()
-                if getiPhone == .iphone6 || getiPhone == .iphonePlus {
-                    self.tblBottomConstraint.constant = 150
-                }else{
-                    self.tblBottomConstraint.constant = 50
-                }
+//                let getiPhone = self.getPhoneScreen()
+//                if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+//                    self.tblBottomConstraint.constant = 150
+//                }else{
+//                    self.tblBottomConstraint.constant = 50
+//                }
                 
                 if let respData = response.value as? NSDictionary{
                     let strMsg = respData["message"] as! String
@@ -763,6 +774,7 @@ print("error")
         AF.request(url!, method: .post, parameters: parameters)
             .responseJSON { response in
                 //to get status code
+                print(response.value)
                 KRProgressHUD.dismiss()
 
                 //                guard let dataResponse = response.data else {
@@ -795,6 +807,7 @@ print("error")
                 guard let dataResponse = response.data else {
                     print("Response Error")
                     return }
+                print(response.value)
                 self.userData = nil
                 do
                                 {
@@ -804,12 +817,12 @@ print("error")
                                    // DispatchQueue.main.async {
                                      //   self.tbleHeightConstraint.constant = CGFloat(allCount*100) //+ 10
                                    // }
-                                    let getiPhone = self.getPhoneScreen()
-                                    if getiPhone == .iphone6 || getiPhone == .iphonePlus {
-                                        self.tblBottomConstraint.constant = 150
-                                    }else{
-                                        self.tblBottomConstraint.constant = 50
-                                    }
+//                                    let getiPhone = self.getPhoneScreen()
+//                                    if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+//                                        self.tblBottomConstraint.constant = 150
+//                                    }else{
+//                                        self.tblBottomConstraint.constant = 50
+//                                    }
 //
                                     self.tableMAinView.reloadData()
                                     self.tableMAinView.layoutIfNeeded()
@@ -840,6 +853,9 @@ print("error")
                 do
                 {
                     let objRes: FriendsModel = try JSONDecoder().decode(FriendsModel.self, from: dataResponse)
+                    if self.friendsModel.count>0{
+                        self.friendsModel.removeAll()
+                    }
                     for each in objRes.all_data ?? [] {
                         self.friendsModel.append(each)
                     }
@@ -1028,6 +1044,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }else if indexPath.row == 1{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileHeadingTableViewCell", for: indexPath) as! ProfileHeadingTableViewCell
+                
                 cell.delegate = self
                 return cell
             }else{
@@ -1038,16 +1055,20 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.delegate = self
                         cell.tableView = tableView
                         cell.feedModel = postsModel
+                        cell.btnExpandImg.isUserInteractionEnabled = true
                         cell.btnEditPostOutlet.addTarget(self, action: #selector(EditPostAction), for: .touchUpInside)
                         cell.btnDeletePostOutlet.addTarget(self, action: #selector(DeletePostAction), for: .touchUpInside)
                         
                         return cell
                     }else {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "profilePost", for: indexPath) as! ProfileDiscussionTableViewCell
-                        cell.setMyPostdata(post: self.postsModel[indexPath.row - 2])
+                      //  let cell = tableView.dequeueReusableCell(withIdentifier: "profilePost", for: indexPath) as! ProfileDiscussionTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "profilePostWithImage", for: indexPath) as! ProfileDiscussionTableViewCell
+
+                        cell.setdata(post: self.postsModel[indexPath.row - 2])
                         cell.delegate = self
                         cell.tableView = tableView
                         cell.feedModel = postsModel
+                        cell.btnExpandImg.isUserInteractionEnabled = false
                         cell.btnEditPostOutlet.addTarget(self, action: #selector(EditPostAction), for: .touchUpInside)
                         cell.btnDeletePostOutlet.addTarget(self, action: #selector(DeletePostAction), for: .touchUpInside)
                         return cell
@@ -1145,14 +1166,27 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if selectedTab == .articles{
+        if selectedTab == .discussion{
+            let vc = Utilities.viewConrollerObject(identifier: "ArticleDetailsVC", storyboard: StoryBoardConstants.kMainStoryBoard) as! ArticleDetailsVC
+            if self.postsModel[indexPath.row - 2].photos?.count ?? 0 > 0 {
+            }else{
+                
+                ProfileAboutString.isFromProfile = false
+            let objArticle = self.postsModel[indexPath.row - 2]
+            vc.articleDetails = objArticle
+            self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }else if selectedTab == .articles{
         let vc = Utilities.viewConrollerObject(identifier: "ArticleDetailsVC", storyboard: StoryBoardConstants.kMainStoryBoard) as! ArticleDetailsVC
 //        vc.articleDetails = self.articlesModel[indexPath.row]
+            let objArticle = self.arrArticles[indexPath.row - 2]
+            ProfileAboutString.isFromProfile = true
+
+            vc.profileArticleDetail = objArticle
         self.navigationController?.pushViewController(vc, animated: true)
         }
 
     }
-    
     @objc  func EditPostAction(_ sender: UIButton) {
         let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tableMAinView)
         let indexPath = self.tableMAinView.indexPathForRow(at: buttonPosition)
@@ -1300,13 +1334,13 @@ extension ProfileViewController: ProfileHeadingCellDelegate {
     
     func btnSelected(type: SelectedTab) {
         print(type)
-        let getiPhone = self.getPhoneScreen()
-       
-        if getiPhone == .iphone6 || getiPhone == .iphonePlus {
-            self.tblBottomConstraint.constant = 150
-        }else{
-            self.tblBottomConstraint.constant = 50
-        }
+//        let getiPhone = self.getPhoneScreen()
+//
+//        if getiPhone == .iphone6 || getiPhone == .iphonePlus {
+//            self.tblBottomConstraint.constant = 150
+//        }else{
+//            self.tblBottomConstraint.constant = 50
+//        }
         self.selectedTab = type
         
         switch self.selectedTab {

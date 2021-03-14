@@ -12,7 +12,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct EducationsModel : Codable {
+struct EducationsModel : Codable{
 	let s_no : Int?
 	let user_id : Int?
 	let user_edu_major : String?
