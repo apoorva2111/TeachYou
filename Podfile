@@ -4,9 +4,7 @@
 target 'TeachYou' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-  # Pods for TeachYou
-	pod 'Alamofire'
+pod 'Alamofire'
  	pod 'SwiftyJSON'
  	pod 'IQKeyboardManagerSwift'
  	pod 'SDWebImage'
@@ -16,4 +14,6 @@ target 'TeachYou' do
 	pod 'ExpandableCell'
   pod 'CarbonKit'
   pod 'KRProgressHUD'
+  # Pods for TeachYou
+
 end

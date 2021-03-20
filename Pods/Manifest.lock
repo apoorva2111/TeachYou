@@ -12,7 +12,7 @@ PODS:
   - SDWebImage/Core (5.10.4)
   - SideMenu (6.5.0)
   - SwiftyJSON (5.0.0)
-  - Tabman (2.10.0):
+  - Tabman (2.11.0):
     - Pageboy (~> 3.6.0)
   - ViewPager-Swift (2.0.1)
 
@@ -54,9 +54,9 @@ SPEC CHECKSUMS:
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
-  Tabman: d8d6ab0b483c7db375a71ac227d3ef791b56a049
+  Tabman: 1d927ebbea463623dac78f889b32fd1addb8fbe8
   ViewPager-Swift: 7d83f5d4888a0fa808c08c8405ba84e603a2eb58
 
-PODFILE CHECKSUM: f47aad8739004ee4f7efab2e331237b69168e990
+PODFILE CHECKSUM: 05efbc0aef44ca9067302dc7f961e5c3607e9d2b
 
 COCOAPODS: 1.10.1
